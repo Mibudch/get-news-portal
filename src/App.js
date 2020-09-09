@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
-
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      test: 'test'
-    }
-  }
-  render() {
-    return (<div>{this.state.test}</div>)
-  }
+import React from 'react'
+import Header from './Header.js'
+function App() {
+  return (
+    <>
+      <Header />
+    </>
+  )
 }
 export default App

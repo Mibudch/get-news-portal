@@ -1,0 +1,9 @@
+.header {
+    background-color: #E1E5E8FF;
+}
+
+.header_flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

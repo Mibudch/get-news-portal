@@ -1,0 +1,17 @@
+.ticker {
+    margin: 0;
+}
+
+.ticker_flex {
+    display: flex;
+}
+
+.ticker__element {
+    border: 1px solid #333
+}
+.ticker__element_static-part{
+    width: 15%;
+}
+.ticker__element_running-part{
+    width: 85%;
+}
