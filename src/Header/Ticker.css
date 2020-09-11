@@ -7,11 +7,14 @@
 }
 
 .ticker__element {
-    border: 1px solid #333
+    border: 1px solid #333;
 }
-.ticker__element_static-part{
+.ticker__element_static-container{
     width: 15%;
 }
-.ticker__element_running-part{
+.ticker__element_running-container{
     width: 85%;
+}
+.ticker__element_marquee{
+    white-space: nowrap;
 }

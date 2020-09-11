@@ -15,7 +15,8 @@ class Header extends Component {
             lat: 53.893009,
             lon: 27.567444,
             temperature: '',
-            icon: ''
+            icon: '',
+            ticker: 'здесь будет длинная бегущаа строка, которая не помещается на весь экран...'
         }
     }
     componentDidMount() {
@@ -44,12 +45,12 @@ class Header extends Component {
                         const icon = res.data.weather[0].icon
                         const place = res.data.name
                         this.setState({ place, temperature, icon })
-                        console.log('didUpdate', res.data)
                     })
             }
         })
     }
     render() {
+        console.log(this.state.place);
         return !this.state.isLoading ? null : (
             <header>
                 <div className='header header_flex'>
@@ -61,7 +62,9 @@ class Header extends Component {
                         temperature={this.state.temperature}
                     />
                 </div>
-                <Ticker />
+                <Ticker 
+                    ticker={this.state.ticker}
+                />
                 <TagWrapper />
             </header>
         )
