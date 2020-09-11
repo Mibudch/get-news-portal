@@ -10,16 +10,14 @@ class Header extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            test: 'test',
+            place: '',
             isLoading: false,
             lat: 53.893009,
             lon: 27.567444,
-            temperMin: '',
-            temperMax: '',
+            temperature: '',
             icon: ''
         }
     }
-
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(position => {
             const lat = position.coords.latitude
@@ -28,39 +26,45 @@ class Header extends Component {
         })
         axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.state.lat}&lon=${this.state.lon}&units=metric&lang=ru&appid=8deb1290960a6df846daf0a26e878871`)
             .then(res => {
-                const temperMin = res.data.main.temp_min
-                const temperMax = res.data.main.temp_max
+                const temperature = res.data.main.temp
                 const icon = res.data.weather[0].icon
-                this.setState({ temperMin, icon, temperMax, isLoading: true })
-                console.log(res.data);
+                const place = res.data.name
+                this.setState({ place, temperature, icon, isLoading: true })
             })
 
     }
-    // componentDidUpdate(prevProps, prevState) {
-
-    //         if (this.state.lon !== prevState.lon && this.state.lat !== prevState.lat) {
-    //             this.setState({ lat: lat, lon: lon })
-
-    //         }
-        
-    // }
+    componentDidUpdate(prevProps, prevState) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const updLat = position.coords.latitude
+            const updLon = position.coords.longitude
+            if (prevState.lon !== updLon && prevState.lat !== updLat) {
+                axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${updLat}&lon=${updLon}&units=metric&lang=ru&appid=8deb1290960a6df846daf0a26e878871`)
+                    .then(res => {
+                        const temperature = res.data.main.temp
+                        const icon = res.data.weather[0].icon
+                        const place = res.data.name
+                        this.setState({ place, temperature, icon })
+                        console.log('didUpdate', res.data)
+                    })
+            }
+        })
+    }
     render() {
-            // console.log(this.state.lat, this.state.lon)
-            return !this.state.isLoading ? null : (
-                <header>
-                    <div className='header header_flex'>
-                        <Logo />
-                        <Finder />
-                        <WeatherСurrency
-                            icon={this.state.icon}
-                            temperMin={this.state.temperMin}
-                            temperMax={this.state.temperMax}
-                        />
-                    </div>
-                    <Ticker />
-                    <TagWrapper />
-                </header>
-            )
-        }
+        return !this.state.isLoading ? null : (
+            <header>
+                <div className='header header_flex'>
+                    <Logo />
+                    <Finder />
+                    <WeatherСurrency
+                        place={this.state.place}
+                        icon={this.state.icon}
+                        temperature={this.state.temperature}
+                    />
+                </div>
+                <Ticker />
+                <TagWrapper />
+            </header>
+        )
+    }
 }
-    export default Header
+export default Header
