@@ -1,10 +1,9 @@
 import React from 'react'
 import './TagWrapper.css'
-function TagWrapper() {
+function TagWrapper(props) {
+    console.log(props.tagName);
     return (
-        <ul className='tagWrapper'>
-            <li className='tagWrapper__element'>Вкладка</li>
-        </ul>
+        <li className='tagWrapper__element'>{props.tagName}</li>
     )
 }
 export default TagWrapper

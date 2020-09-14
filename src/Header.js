@@ -6,6 +6,7 @@ import Finder from './Header/Finder.js'
 import WeatherСurrency from './Header/WeatherСurrency.js'
 import Ticker from './Header/Ticker.js'
 import TagWrapper from './Header/TagWrapper.js'
+import { tagArray } from './Header/TagArray.js'
 class Header extends Component {
     constructor(props) {
         super(props)
@@ -20,7 +21,8 @@ class Header extends Component {
             usdRate: '',
             eurRate: '',
             rubRate: '',
-            ticker: ''
+            ticker: '',
+            news: []
         }
     }
     componentDidMount() {
@@ -44,11 +46,11 @@ class Header extends Component {
                 const eurRate = res.data[5].Cur_OfficialRate
                 this.setState({ usdRate, eurRate, rubRate })
             })
-            axios.get(`http://newsapi.org/v2/top-headlines?country=ru&apiKey=7a824e553994401584147a79cbf9129f`)
+        axios.get(`http://newsapi.org/v2/top-headlines?pageSize=30&category=general&country=ru&apiKey=7a824e553994401584147a79cbf9129f`)
             .then(res => {
-               const ticker = res.data.articles.map((el)=>`${(el.title)} ${'||'} `)
-               this.setState({ ticker: ticker })
-               console.log(res.data);
+                const ticker = res.data.articles.map((el) => `${(el.title)} ${'||'} `)
+                const news = res.data
+                this.setState({ ticker: ticker, news })
             })
     }
     componentDidUpdate(prevProps, prevState) {
@@ -85,11 +87,20 @@ class Header extends Component {
                         />
                     </div>
                     <Ticker
-                    ticker={this.state.ticker}
-                />
-                <TagWrapper />
+                        ticker={this.state.ticker}
+                    />
+                    <nav className='tagWrapper'>
+                        {tagArray.map((el, i) => {
+                            return (
+                                <TagWrapper
+                                    key={i}
+                                    tagName={el.tagName}
+                                />
+                            )
+                        })}
+                    </nav>
                 </div>
-               
+
             </header>
         )
     }
