@@ -16,7 +16,11 @@ class Header extends Component {
             lon: 27.567444,
             temperature: '',
             icon: '',
-            ticker: 'здесь будет длинная бегущаа строка, которая не помещается на весь экран...'
+            description: '',
+            usdRate: '',
+            eurRate: '',
+            rubRate: '',
+            ticker: ''
         }
     }
     componentDidMount() {
@@ -29,10 +33,23 @@ class Header extends Component {
             .then(res => {
                 const temperature = res.data.main.temp
                 const icon = res.data.weather[0].icon
+                const description = res.data.weather[0].description
                 const place = res.data.name
-                this.setState({ place, temperature, icon, isLoading: true })
+                this.setState({ place, temperature, icon, description, isLoading: true })
             })
-
+        axios.get(`https://www.nbrb.by/api/exrates/rates?periodicity=0`)
+            .then(res => {
+                const usdRate = res.data[4].Cur_OfficialRate
+                const rubRate = res.data[16].Cur_OfficialRate
+                const eurRate = res.data[5].Cur_OfficialRate
+                this.setState({ usdRate, eurRate, rubRate })
+            })
+            axios.get(`http://newsapi.org/v2/top-headlines?country=ru&apiKey=7a824e553994401584147a79cbf9129f`)
+            .then(res => {
+               const ticker = res.data.articles.map((el)=>`${(el.title)} ${'||'} `)
+               this.setState({ ticker: ticker })
+               console.log(res.data);
+            })
     }
     componentDidUpdate(prevProps, prevState) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -43,29 +60,36 @@ class Header extends Component {
                     .then(res => {
                         const temperature = res.data.main.temp
                         const icon = res.data.weather[0].icon
+                        const description = res.data.weather[0].description
                         const place = res.data.name
-                        this.setState({ place, temperature, icon })
+                        this.setState({ place, temperature, icon, description })
                     })
             }
         })
     }
     render() {
-        console.log(this.state.place);
         return !this.state.isLoading ? null : (
             <header>
-                <div className='header header_flex'>
-                    <Logo />
-                    <Finder />
-                    <WeatherСurrency
-                        place={this.state.place}
-                        icon={this.state.icon}
-                        temperature={this.state.temperature}
-                    />
-                </div>
-                <Ticker 
+                <div className='header'>
+                    <div className='header__container header_flex'>
+                        <Logo />
+                        <Finder />
+                        <WeatherСurrency
+                            place={this.state.place}
+                            icon={this.state.icon}
+                            description={this.state.description}
+                            temperature={this.state.temperature}
+                            usdRate={this.state.usdRate}
+                            eurRate={this.state.eurRate}
+                            rubRate={this.state.rubRate}
+                        />
+                    </div>
+                    <Ticker
                     ticker={this.state.ticker}
                 />
                 <TagWrapper />
+                </div>
+               
             </header>
         )
     }

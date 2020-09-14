@@ -1,4 +1,9 @@
-.header {
+.header{
+    background-color: #000000FF;
+    padding-top: 10px;
+    padding-bottom: 3px;
+}
+.header__container {
     background-color: #E1E5E8FF;
 }
 

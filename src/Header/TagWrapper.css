@@ -1,9 +1,13 @@
 .tagWrapper {
-    display: flex;
+    display: inline-flex;
+    background-color: #E1E5E8FF;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 .tagWrapper__element{
-    border: 1px solid #333
+    border: 1px solid #000000FF;
+    color: #E1E5E8FF;
+    background-color: #CF1717FF;
+    padding: 5px;
 }
