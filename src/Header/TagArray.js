@@ -1,5 +1,5 @@
 export const tagArray = [
-    {category: 'general', tagName: 'Топ-20 новостей'}, 
+    {category: 'general', tagName: 'Топ новости'}, 
     {category: 'business', tagName: 'Бизнесс'}, 
     {category: 'technology', tagName: 'Технологии'}, 
     {category: 'entertainment', tagName: 'Развлечения'}, 
