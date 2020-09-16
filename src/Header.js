@@ -21,7 +21,9 @@ class Header extends Component {
             currencyRates: [],
             ticker: '',
             news: [],
-            handlerCategory: ''
+            handlerCategory: '',
+            inputFinder: '',
+            inputFinderRequest: ''
         }
     }
     componentDidMount() {
@@ -53,6 +55,7 @@ class Header extends Component {
                     .then(res => {
                         const weather = res.data
                         this.setState({ weather, lat: updLat, lon: updLon })
+                        // console.log(updLat, updLon);
                     })
             }
         })
@@ -63,9 +66,16 @@ class Header extends Component {
                     this.setState({ news })
                 })
         }
+        if (prevState.inputFinderRequest !== this.state.inputFinderRequest) {
+            axios.get(`https://newsapi.org/v2/everything?q=${this.state.inputFinderRequest}&pageSize=100&language=ru&apiKey=7a824e553994401584147a79cbf9129f`)
+                .then(res => {
+                    const news = res.data.articles
+                    this.setState({ news })
+                })
+        }
     }
     getNewsTitle = param => {
-        if (param && param.split(' ').length > 1) {
+        if (param && param.split(' ').length > 5) {
             const arr = param.split(' ')
             const newArr = []
             for (let i = 0; i < 11; i++) {
@@ -73,11 +83,15 @@ class Header extends Component {
             }
             return (newArr.join(' ') + '....')
         }
-        if(param && param.split(' ').length < 2){
-            return param
-        }
     }
-    handlerOnClick(props) {
+    handlerOnChangeFinder = event => {
+        this.setState({ inputFinder: event.target.value })
+    }
+    handlerOnClickFinder = () => {
+        const request = this.state.inputFinder.split(' ').join('+')
+        this.setState({ inputFinderRequest: request })
+    }
+    handlerOnClickTag = (props) => {
         this.setState({ handlerCategory: props })
     }
     render() {
@@ -88,7 +102,10 @@ class Header extends Component {
                     <div className='header'>
                         <div className='header__container header_flex'>
                             <Logo />
-                            <Finder />
+                            <Finder
+                                onChange={this.handlerOnChangeFinder}
+                                onClick={this.handlerOnClickFinder}
+                            />
                             <WeatherСurrency
                                 place={this.state.weather.name}
                                 icon={this.state.weather.weather[0].icon}
@@ -108,7 +125,7 @@ class Header extends Component {
                                     <TagWrapper
                                         key={i}
                                         tagName={el.tagName}
-                                        onClick={this.handlerOnClick.bind(this, el.category)}
+                                        onClick={this.handlerOnClickTag.bind(this, el.category)}
                                     />
                                 )
                             })}

@@ -1,9 +1,9 @@
 import React from 'react'
-function Finder(){
+function Finder(props){
     return(
         <h2>
-            <input type='text'></input>
-            <button>Найти</button>
+            <input type='text'  onChange={props.onChange}></input>
+            <button onClick={props.onClick}>Найти</button>
         </h2>
     )
 }
