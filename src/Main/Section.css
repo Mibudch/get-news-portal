@@ -1,9 +1,11 @@
 .section{
     padding-top: 10px;
+    
 }
 .section__wrapper{
     width: 400px;
     height: auto;
+    
 }
 .section__img {
     width: 100%;

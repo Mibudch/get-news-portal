@@ -11,75 +11,61 @@ import './Main/Main.css'
 import { tagArray } from './Header/TagArray.js'
 class Header extends Component {
     constructor(props) {
+        console.log('constructor');
         super(props)
         this.state = {
-            place: '',
+            weather: {},
             isLoading: false,
             lat: 53.893009,
             lon: 27.567444,
-            temperature: '',
-            icon: '',
-            iconDescription: '',
-            usdRate: '',
-            eurRate: '',
-            rubRate: '',
+            currencyRates: [],
             ticker: '',
             news: [],
-            newsImage: '',
-            newsTitle: '',
+            handlerCategory: ''
         }
-        console.log('constructor');
     }
     componentDidMount() {
         console.log('didMount');
-        navigator.geolocation.getCurrentPosition(position => {
-            const lat = position.coords.latitude
-            const lon = position.coords.longitude
-            this.setState({ lat: lat, lon: lon })
-        })
         axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.state.lat}&lon=${this.state.lon}&units=metric&lang=ru&appid=8deb1290960a6df846daf0a26e878871`)
             .then(res => {
-                const temperature = res.data.main.temp
-                const icon = res.data.weather[0].icon
-                const iconDescription = res.data.weather[0].description
-                const place = res.data.name
-                this.setState({ place, temperature, icon, iconDescription, isLoading: true })
+                const weather = res.data
+                this.setState({ weather })
             })
         axios.get(`https://www.nbrb.by/api/exrates/rates?periodicity=0`)
             .then(res => {
-                const usdRate = res.data[4].Cur_OfficialRate
-                const rubRate = res.data[16].Cur_OfficialRate
-                const eurRate = res.data[5].Cur_OfficialRate
-                this.setState({ usdRate, eurRate, rubRate })
+                const currencyRates = res.data
+                this.setState({ currencyRates })
             })
         axios.get(`http://newsapi.org/v2/top-headlines?pageSize=100&category=general&country=ru&apiKey=7a824e553994401584147a79cbf9129f`)
             .then(res => {
                 const ticker = res.data.articles.map((el) => `${(el.title)} ${'||'} `)
                 const news = res.data.articles
-                const newsImage = res.data.articles[0].urlToImage
-                const newsTitle = res.data.articles[0].description
-                this.setState({ ticker: ticker, news, newsImage, newsTitle })
+                this.setState({ ticker: ticker, news, isLoading: true })
             })
     }
     componentDidUpdate(prevProps, prevState) {
+        console.log('didUpdate')
         navigator.geolocation.getCurrentPosition(position => {
             const updLat = position.coords.latitude
             const updLon = position.coords.longitude
             if (prevState.lon !== updLon && prevState.lat !== updLat) {
-                console.log('didUpdate')
                 axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${updLat}&lon=${updLon}&units=metric&lang=ru&appid=8deb1290960a6df846daf0a26e878871`)
                     .then(res => {
-                        const temperature = res.data.main.temp
-                        const icon = res.data.weather[0].icon
-                        const iconDescription = res.data.weather[0].description
-                        const place = res.data.name
-                        this.setState({ place, temperature, icon, iconDescription })
+                        const weather = res.data
+                        this.setState({ weather, lat: updLat, lon: updLon })
                     })
             }
         })
+        if (prevState.handlerCategory !== this.state.handlerCategory) {
+            axios.get(`http://newsapi.org/v2/top-headlines?pageSize=100&category=${this.state.handlerCategory}&country=ru&apiKey=7a824e553994401584147a79cbf9129f`)
+                .then(res => {
+                    const news = res.data.articles
+                    this.setState({ news })
+                })
+        }
     }
-    getNewsTitle(param) {
-        if (param) {
+    getNewsTitle = param => {
+        if (param && param.split(' ').length > 1) {
             const arr = param.split(' ')
             const newArr = []
             for (let i = 0; i < 11; i++) {
@@ -87,13 +73,16 @@ class Header extends Component {
             }
             return (newArr.join(' ') + '....')
         }
+        if(param && param.split(' ').length < 2){
+            return param
+        }
     }
     handlerOnClick(props) {
-        return console.log(props);
+        this.setState({ handlerCategory: props })
     }
     render() {
         console.log('render');
-        return !this.state.isLoading ? null : (
+        return this.state.isLoading && (
             <>
                 <header>
                     <div className='header'>
@@ -101,13 +90,13 @@ class Header extends Component {
                             <Logo />
                             <Finder />
                             <WeatherСurrency
-                                place={this.state.place}
-                                icon={this.state.icon}
-                                iconDescription={this.state.iconDescription}
-                                temperature={this.state.temperature}
-                                usdRate={this.state.usdRate}
-                                eurRate={this.state.eurRate}
-                                rubRate={this.state.rubRate}
+                                place={this.state.weather.name}
+                                icon={this.state.weather.weather[0].icon}
+                                iconDescription={this.state.weather.weather[0].description}
+                                temperature={this.state.weather.main.temp}
+                                usdRate={this.state.currencyRates[4].Cur_OfficialRate}
+                                eurRate={this.state.currencyRates[5].Cur_OfficialRate}
+                                rubRate={this.state.currencyRates[16].Cur_OfficialRate}
                             />
                         </div>
                         <Ticker
@@ -144,3 +133,5 @@ class Header extends Component {
     }
 }
 export default Header
+
+// циклы, правильное использование, очень много рендера

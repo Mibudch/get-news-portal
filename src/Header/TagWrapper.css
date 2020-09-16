@@ -6,4 +6,8 @@
     border-radius: 0 0 10px 0;
     color: #E1E5E8FF;
     background-color: #CF1717FF;
+    cursor: pointer
+}
+.tagWrapper__element:active{
+    background-color: #DC4D41F6;
 }
