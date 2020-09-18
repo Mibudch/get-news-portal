@@ -6,8 +6,13 @@
     border-radius: 0 0 10px 0;
     color: #E1E5E8FF;
     background-color: #CF1717FF;
-    cursor: pointer
+    cursor: pointer;
+    border: 0;
 }
 .tagWrapper__element:active{
     background-color: #DC4D41F6;
+}
+.tagWrapper__element:focus {
+    outline: 0;
+    outline-offset: 0;
 }

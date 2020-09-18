@@ -6,6 +6,5 @@ function WeatherСurrency(props) {
             <div>Курсы НБРБ: &#36; {props.usdRate}BYR; &euro; {props.eurRate}BYR; 100&#8381; {props.rubRate}BYR;</div>
         </h3>
     )
-
 }
 export default WeatherСurrency
