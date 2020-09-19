@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Header from './Header.js'
-import axios from 'axios'
+import { getWeatherAPI, getRatesAPI, getNewsAPI, getNewsSearchAPI } from './sys/sysAPI.js'
 import './Header.css'
 import Main from './Main/Main.js'
 import './Main/Main.css'
+let searchValue = ''
 class App extends Component {
   constructor(props) {
     console.log('constructor');
@@ -19,48 +20,45 @@ class App extends Component {
       newsCategory: 'general'
     }
   }
-  componentDidMount() {
-    console.log('didMount');
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.state.lat}&lon=${this.state.lon}&units=metric&lang=ru&appid=8deb1290960a6df846daf0a26e878871`)
-      .then(res => {
-        const weather = res.data
-        this.setState({ weather: weather })
-      })
-    axios.get(`https://www.nbrb.by/api/exrates/rates?periodicity=0`)
-      .then(res => {
-        const currencyRates = res.data
-        this.setState({ currencyRates })
-      })
-    axios.get(`http://newsapi.org/v2/top-headlines?pageSize=100&category=${this.state.newsCategory}&country=ru&apiKey=7a824e553994401584147a79cbf9129f`)
-      .then(res => {
-        const ticker = res.data.articles.map((el) => `${(el.title)} ${'||'} `)
-        const news = res.data.articles
-        this.setState({ ticker: ticker, news, isLoading: true })
-      })
-  }
-  componentDidUpdate(){
-    console.log('update');
+  async componentDidMount() {
+    try {
+      const { lat, lon, newsCategory } = this.state
+      const [weather, currencyRates, news] = await Promise.all([
+        getWeatherAPI(lat, lon),
+        getRatesAPI(),
+        getNewsAPI(newsCategory)
+      ])
+      const ticker = news.data.articles.map((el) => `${(el.title)} ${'||'} `)
+      this.setState({ weather: weather.data, currencyRates: currencyRates.data, ticker: ticker, news: news.data.articles, isLoading: true })
+    } catch (e) {
+      console.error(e)
+    }
   }
   handlerOnclickTag = event => {
+    const newsCategory = event.target.value
     if (this.state.newsCategory !== event.target.value) {
-      this.setState({ newsCategory: event.target.value })
+      getNewsAPI(newsCategory)
+        .then(res => {
+          const news = res.data.articles
+          this.setState({ news, newsCategory })
+        })
     }
   }
-  getNewsTitle = param => {
-    if (param && param.split(' ').length > 1) {
-      const arr = param.split(' ')
-      const newArr = []
-      for (let i = 0; i < 11; i++) {
-        newArr.push(arr[i])
-      }
-      return (newArr.join(' ') + '....')
-    }
-    if (param && param.split(' ').length < 2) {
-      return param
-    }
+  getSearcValue = (event) => {
+    searchValue = event.target.value
+    console.log(searchValue);
   }
+  handlerOnclickSearch = () => {
+    const request = searchValue.split(' ').join('+')
+    getNewsSearchAPI(request)
+      .then(res => {
+        const news = res.data.articles
+        this.setState({ news })
+      })
+  }
+
   render() {
-    console.log(this.state.newsCategory);
+    console.log('render', this.state.news);
     return this.state.isLoading && (
       <>
         <header>
@@ -72,7 +70,10 @@ class App extends Component {
             usdRate={this.state.currencyRates[4].Cur_OfficialRate}
             eurRate={this.state.currencyRates[5].Cur_OfficialRate}
             rubRate={this.state.currencyRates[16].Cur_OfficialRate}
-            handlerOnclickTag={this.handlerOnclickTag}
+            ticker={this.state.ticker}
+            onclickTag={this.handlerOnclickTag}
+            getSearcValue={this.getSearcValue}
+            onclickSearch={this.handlerOnclickSearch}
           />
         </header>
         <main className='main'>
@@ -81,7 +82,7 @@ class App extends Component {
               <Main
                 key={i}
                 newsImage={el.urlToImage}
-                newsTitle={this.getNewsTitle(el.description)}
+                newsTitle={el.title}
               />
             )
           })}

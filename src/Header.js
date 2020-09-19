@@ -10,7 +10,10 @@ function Header(props) {
         <header>
             <div className='header__container header_flex'>
                 <Logo />
-                <Finder />
+                <Finder 
+                    getSearcValue={props.getSearcValue}
+                    onclickSearch={props.onclickSearch}
+                />
                 <WeatherСurrency
                     place={props.place}
                     icon={props.icon}
@@ -31,7 +34,7 @@ function Header(props) {
                             key={i}
                             tagName={el.tagName}
                             category={el.category}
-                            handlerOnclickTag={props.handlerOnclickTag}
+                            onclickTag={props.onclickTag}
                         />
                     )
                 })}
