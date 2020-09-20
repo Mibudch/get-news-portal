@@ -5,12 +5,15 @@ import WeatherСurrency from './Header/WeatherСurrency.js'
 import Ticker from './Header/Ticker.js'
 import TagWrapper from './Header/TagWrapper.js'
 import { tagArray } from './Header/TagArray.js'
+import { NavLink } from 'react-router-dom'
 function Header(props) {
     return (
         <header>
             <div className='header__container header_flex'>
-                <Logo />
-                <Finder 
+                <NavLink to='/'>
+                    <Logo />
+                </NavLink>
+                <Finder
                     getSearcValue={props.getSearcValue}
                     onclickSearch={props.onclickSearch}
                 />
@@ -24,9 +27,7 @@ function Header(props) {
                     rubRate={props.rubRate}
                 />
             </div>
-            <Ticker
-                ticker={props.ticker}
-            />
+            <Ticker ticker={props.ticker} />
             <nav className='tagWrapper'>
                 {tagArray.map((el, i) => {
                     return (

@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import Header from './Header.js'
+import { Route } from 'react-router-dom'
 import { getWeatherAPI, getRatesAPI, getNewsAPI, getNewsSearchAPI } from './sys/sysAPI.js'
 import './Header.css'
-import Main from './Main/Main.js'
+import  Main  from './Main/Main.js'
 import './Main/Main.css'
 let searchValue = ''
 class App extends Component {
   constructor(props) {
-    console.log('constructor');
     super(props)
     this.state = {
       weather: {},
       isLoading: false,
+      isCurrentLocation: false,
       lat: 53.893009,
       lon: 27.567444,
       currencyRates: [],
@@ -20,6 +21,7 @@ class App extends Component {
       newsCategory: 'general'
     }
   }
+
   async componentDidMount() {
     try {
       const { lat, lon, newsCategory } = this.state
@@ -34,13 +36,27 @@ class App extends Component {
       console.error(e)
     }
   }
+  componentDidUpdate() {
+    if ("geolocation" in navigator && !this.state.isCurrentLocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        getWeatherAPI(lat, lon)
+          .then(res => {
+            const weather = res.data
+            this.setState({ weather, isCurrentLocation: true })
+          })
+      })
+    }
+  }
+
   handlerOnclickTag = event => {
     const newsCategory = event.target.value
     if (this.state.newsCategory !== event.target.value) {
       getNewsAPI(newsCategory)
         .then(res => {
           const news = res.data.articles
-          this.setState({ news, newsCategory })
+          this.setState({ news, newsCategory, currentLocation: true })
         })
     }
   }
@@ -56,12 +72,11 @@ class App extends Component {
         this.setState({ news })
       })
   }
-
   render() {
-    console.log('render', this.state.news);
+    console.log(this.state.news);
     return this.state.isLoading && (
       <>
-        <header>
+        <Route path='/'>
           <Header
             place={this.state.weather.name}
             icon={this.state.weather.weather[0].icon}
@@ -75,18 +90,24 @@ class App extends Component {
             getSearcValue={this.getSearcValue}
             onclickSearch={this.handlerOnclickSearch}
           />
-        </header>
-        <main className='main'>
-          {this.state.news.map((el, i) => {
-            return (
-              <Main
-                key={i}
-                newsImage={el.urlToImage}
-                newsTitle={el.title}
-              />
-            )
-          })}
-        </main>
+          <Route exact path='/'>
+            <main className='main'>
+              {this.state.news.map((el, i) => {
+                return (
+                  <Main
+                    key={i}
+                    newsImage={el.urlToImage}
+                    newsTitle={el.title}
+                  />
+                )
+              })}
+            </main>
+          </Route>
+        </Route>
+        <Route path='/weather'><span>Погода</span></Route>
+        <Route path='/rates'><span>Курсы валют</span></Route>
+        <Route path='/main/:newsTitle'><span>Курсы валют</span></Route>
+
       </>
     )
   }
