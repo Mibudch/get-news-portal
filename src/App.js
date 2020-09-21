@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Header from './Header.js'
 import { Route } from 'react-router-dom'
-import { getWeatherAPI, getRatesAPI, getNewsAPI, getNewsSearchAPI } from './sys/sysAPI.js'
+import { getWeatherAPI, getRatesAPI, getTopNewsAPI, getBusinessNewsAPI, getNewsSearchAPI } from './sys/sysAPI.js'
 import './Header.css'
-import  Main  from './Main/Main.js'
-import './Main/Main.css'
+import Main from './Main/Main.js'
+
 let searchValue = ''
 class App extends Component {
   constructor(props) {
@@ -17,21 +17,24 @@ class App extends Component {
       lon: 27.567444,
       currencyRates: [],
       ticker: '',
-      news: [],
-      newsCategory: 'general'
+      topNews: [],
+      businessNews: [],
+      newsCategory: 'general',
+      sourceAPI: ''
     }
   }
 
   async componentDidMount() {
     try {
-      const { lat, lon, newsCategory } = this.state
-      const [weather, currencyRates, news] = await Promise.all([
+      const { lat, lon } = this.state
+      const [weather, currencyRates, topNews, businessNews] = await Promise.all([
         getWeatherAPI(lat, lon),
         getRatesAPI(),
-        getNewsAPI(newsCategory)
+        getTopNewsAPI(),
+        getBusinessNewsAPI(),
       ])
-      const ticker = news.data.articles.map((el) => `${(el.title)} ${'||'} `)
-      this.setState({ weather: weather.data, currencyRates: currencyRates.data, ticker: ticker, news: news.data.articles, isLoading: true })
+      const ticker = topNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
+      this.setState({ weather: weather.data, currencyRates: currencyRates.data, ticker: ticker, topNews: topNews.data.articles, businessNews: businessNews.data.articles, isLoading: true })
     } catch (e) {
       console.error(e)
     }
@@ -50,19 +53,18 @@ class App extends Component {
     }
   }
 
-  handlerOnclickTag = event => {
-    const newsCategory = event.target.value
-    if (this.state.newsCategory !== event.target.value) {
-      getNewsAPI(newsCategory)
-        .then(res => {
-          const news = res.data.articles
-          this.setState({ news, newsCategory, currentLocation: true })
-        })
-    }
-  }
+  // handlerOnclickTag = event => {
+  //   const newsCategory = event.target.value
+  //   if (this.state.newsCategory !== event.target.value) {
+  //     getNewsAPI(newsCategory)
+  //       .then(res => {
+  //         const news = res.data.articles
+  //         this.setState({ news, newsCategory, currentLocation: true })
+  //       })
+  //   }
+  // }
   getSearcValue = (event) => {
     searchValue = event.target.value
-    console.log(searchValue);
   }
   handlerOnclickSearch = () => {
     const request = searchValue.split(' ').join('+')
@@ -73,7 +75,6 @@ class App extends Component {
       })
   }
   render() {
-    console.log(this.state.news);
     return this.state.isLoading && (
       <>
         <Route path='/'>
@@ -91,17 +92,10 @@ class App extends Component {
             onclickSearch={this.handlerOnclickSearch}
           />
           <Route exact path='/'>
-            <main className='main'>
-              {this.state.news.map((el, i) => {
-                return (
-                  <Main
-                    key={i}
-                    newsImage={el.urlToImage}
-                    newsTitle={el.title}
-                  />
-                )
-              })}
-            </main>
+                <Main
+                  topNews={this.state.topNews}
+                  businessNews={this.state.businessNews}
+                />
           </Route>
         </Route>
         <Route path='/weather'><span>Погода</span></Route>
