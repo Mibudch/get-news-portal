@@ -33,25 +33,37 @@ class App extends Component {
         getTopNewsAPI(),
         getBusinessNewsAPI(),
       ])
+
+      if ("geolocation" in navigator && !this.state.isCurrentLocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          getWeatherAPI(lat, lon)
+            .then(res => {
+              const weather = res.data
+              this.setState({ weather, isCurrentLocation: true })
+            })
+        })
+      }
       const ticker = topNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
       this.setState({ weather: weather.data, currencyRates: currencyRates.data, ticker: ticker, topNews: topNews.data.articles, businessNews: businessNews.data.articles, isLoading: true })
     } catch (e) {
       console.error(e)
     }
   }
-  componentDidUpdate() {
-    if ("geolocation" in navigator && !this.state.isCurrentLocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        getWeatherAPI(lat, lon)
-          .then(res => {
-            const weather = res.data
-            this.setState({ weather, isCurrentLocation: true })
-          })
-      })
-    }
-  }
+  // componentDidUpdate() {
+  //   if ("geolocation" in navigator && !this.state.isCurrentLocation) {
+  //     navigator.geolocation.getCurrentPosition(position => {
+  //       const lat = position.coords.latitude;
+  //       const lon = position.coords.longitude;
+  //       getWeatherAPI(lat, lon)
+  //         .then(res => {
+  //           const weather = res.data
+  //           this.setState({ weather, isCurrentLocation: true })
+  //         })
+  //     })
+  //   }
+  // }
 
   // handlerOnclickTag = event => {
   //   const newsCategory = event.target.value
@@ -92,16 +104,14 @@ class App extends Component {
             onclickSearch={this.handlerOnclickSearch}
           />
           <Route exact path='/'>
-                <Main
-                  topNews={this.state.topNews}
-                  businessNews={this.state.businessNews}
-                />
+            <Main
+              topNews={this.state.topNews}
+              businessNews={this.state.businessNews}
+            />
           </Route>
         </Route>
         <Route path='/weather'><span>Погода</span></Route>
         <Route path='/rates'><span>Курсы валют</span></Route>
-        <Route path='/main/:newsTitle'><span>Курсы валют</span></Route>
-
       </>
     )
   }
