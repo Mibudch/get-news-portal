@@ -1,0 +1,9 @@
+.sample{
+    margin: 10px;
+    height: 100px;
+    width: 250px;
+    background-image: url(./logo/sampleAdv.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

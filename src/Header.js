@@ -1,22 +1,16 @@
 import React from 'react'
 import Logo from './Header/Logo.js'
 import Finder from './Header/Finder.js'
+import HeaderAdvBlock from './Header/HeaderAdvBlock.js'
 import WeatherСurrency from './Header/WeatherСurrency.js'
 import Ticker from './Header/Ticker.js'
 import TagWrapper from './Header/TagWrapper.js'
-import { tagArray } from './Header/TagArray.js'
 import { NavLink } from 'react-router-dom'
 function Header(props) {
     return (
         <header>
-            <div className='header__container header_flex'>
-                <NavLink to='/'>
-                    <Logo />
-                </NavLink>
-                <Finder
-                    getSearcValue={props.getSearcValue}
-                    onclickSearch={props.onclickSearch}
-                />
+            <div className='header__top-comtainer'>
+                <TagWrapper props={props.onclickTag} />
                 <WeatherСurrency
                     place={props.place}
                     icon={props.icon}
@@ -27,19 +21,17 @@ function Header(props) {
                     rubRate={props.rubRate}
                 />
             </div>
+            <div className='header__bottom-container'>
+                <NavLink to='/'>
+                    <Logo />
+                </NavLink>
+                <Finder
+                    getSearcValue={props.getSearcValue}
+                    onclickSearch={props.onclickSearch}
+                />
+                <HeaderAdvBlock />
+            </div>
             <Ticker ticker={props.ticker} />
-            <nav className='tagWrapper'>
-                {tagArray.map((el, i) => {
-                    return (
-                        <TagWrapper
-                            key={i}
-                            tagName={el.tagName}
-                            category={el.category}
-                            onclickTag={props.onclickTag}
-                        />
-                    )
-                })}
-            </nav>
         </header>
     )
 }

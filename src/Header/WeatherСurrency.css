@@ -1,7 +1,10 @@
+.weather-currency__container{
+    display: flex;
+    justify-items: flex-end;
+}
 .weather__container {
     display: flex;
 }
-
 .weather__image {
     height: 40px;
     width: 40px;

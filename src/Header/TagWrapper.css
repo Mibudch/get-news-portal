@@ -1,4 +1,11 @@
-.tagWrapper__element{
+.nav__container{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav__element{
+    margin: 1px;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
@@ -9,10 +16,10 @@
     cursor: pointer;
     border: 0;
 }
-.tagWrapper__element:active{
+.nav__element:active{
     background-color: #DC4D41F6;
 }
-.tagWrapper__element:focus {
+.nav__element:focus {
     outline: 0;
     outline-offset: 0;
 }

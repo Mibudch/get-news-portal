@@ -10,7 +10,6 @@ function Main(props) {
         <main>
             <section className='section'>
                 <SectionTopNews
-                    props={props.topNews}
                     firstNews={props.topNews.find(el => el)}
                     leftTopTopNews={props.topNews.slice(1, 5)}
                     leftBottomTopNews={props.topNews.slice(5, 10)}

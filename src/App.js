@@ -52,30 +52,6 @@ class App extends Component {
       console.error(e)
     }
   }
-  // componentDidUpdate() {
-  //   if ("geolocation" in navigator && !this.state.isCurrentLocation) {
-  //     navigator.geolocation.getCurrentPosition(position => {
-  //       const lat = position.coords.latitude;
-  //       const lon = position.coords.longitude;
-  //       getWeatherAPI(lat, lon)
-  //         .then(res => {
-  //           const weather = res.data
-  //           this.setState({ weather, isCurrentLocation: true })
-  //         })
-  //     })
-  //   }
-  // }
-
-  // handlerOnclickTag = event => {
-  //   const newsCategory = event.target.value
-  //   if (this.state.newsCategory !== event.target.value) {
-  //     getNewsAPI(newsCategory)
-  //       .then(res => {
-  //         const news = res.data.articles
-  //         this.setState({ news, newsCategory, currentLocation: true })
-  //       })
-  //   }
-  // }
   getSearcValue = (event) => {
     searchValue = event.target.value
   }
