@@ -1,9 +1,5 @@
 .weather-currency__container{
-    display: flex;
-    justify-items: flex-end;
-}
-.weather__container {
-    display: flex;
+    justify-content: space-between;
 }
 .weather__image {
     height: 40px;
@@ -17,4 +13,10 @@
 ._text-decoration-none{
     text-decoration: none;
     color: #333
+}
+._padding-left{
+    margin-left: 10px;
+}
+._flex{
+    display: flex;
 }

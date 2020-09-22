@@ -1,5 +1,6 @@
 .header__top-comtainer{
     display: flex;
+    flex-flow: wrap;
     justify-content: space-around;
 }
 
@@ -11,4 +12,5 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    width: 100%;
 }

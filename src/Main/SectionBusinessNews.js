@@ -1,5 +1,5 @@
 import React from 'react'
-import './Section.css'
+import './Style/Section.css'
 function SectionBusinessNews(props) {
     return (
         <div className='section__wrapper'>

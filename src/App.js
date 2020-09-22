@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
-import Header from './Header.js'
+import Header from './Header/Header.js'
 import { Route } from 'react-router-dom'
 import { getWeatherAPI, getRatesAPI, getTopNewsAPI, getBusinessNewsAPI, getNewsSearchAPI } from './sys/sysAPI.js'
-import './Header.css'
 import Main from './Main/Main.js'
-
 let searchValue = ''
 class App extends Component {
   constructor(props) {
@@ -64,6 +62,7 @@ class App extends Component {
       })
   }
   render() {
+    console.log(this.state.weather);
     return this.state.isLoading && (
       <>
         <Route path='/'>
@@ -72,6 +71,7 @@ class App extends Component {
             icon={this.state.weather.weather[0].icon}
             iconDescription={this.state.weather.weather[0].description}
             temperature={this.state.weather.main.temp}
+            tempFeelsLike={this.state.weather.main.feels_like}
             usdRate={this.state.currencyRates[4].Cur_OfficialRate}
             eurRate={this.state.currencyRates[5].Cur_OfficialRate}
             rubRate={this.state.currencyRates[16].Cur_OfficialRate}

@@ -1,7 +1,7 @@
 import React from 'react'
-import './TagWrapper.css'
+import './Style/NavWrapper.css'
 import { tagArray } from './TagArray.js'
-function TagWrapper(props) {
+function NavWrapper(props) {
     return (
         <nav className='nav__container'>
             {tagArray.map((el, i) => {
@@ -15,4 +15,4 @@ function TagWrapper(props) {
         </nav>
     )
 }
-export default TagWrapper
+export default NavWrapper

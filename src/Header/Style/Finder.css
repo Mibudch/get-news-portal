@@ -1,0 +1,32 @@
+
+.finder__container{
+    width: 40%;
+}
+.finder__wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.finder__input{
+    padding-left: 15px;
+    width: 75%;
+    height: 27px;
+    border: 2px solid #333;
+    border-radius: 5px 0 0 5px;
+}
+.finder__input::placeholder{
+    font-size: medium;
+}
+.finder__button{
+    border:  0;
+    outline: none;
+    width: 20%;
+    height: 32px;
+    background-color: #CF1717FF;
+    color: #E1E5E8FF;
+    font-size: large;
+    border-radius: 0 0 10px 0;
+    cursor: pointer;
+}
+.finder__button:active{
+    background-color: #DC4D41F6;
+}

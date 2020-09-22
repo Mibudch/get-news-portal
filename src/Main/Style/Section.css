@@ -1,9 +1,25 @@
-.section{
+.section__separator{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 50px;
+    width: 100%;
+    color: #fff;
+    text-align: end;
+    font-size: 45px;
+    font-weight: bolder;
+}
+._bg{
+    background-image: url(../Img/NP.png);
+    background-size: cover;
+}
+._fade{
+    background-color: rgba(28, 29, 30, 0.589);
+}
+.section__block{
     display: flex;
     justify-content: space-evenly;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 10px;
     width: 100%;
     height: auto;
 }
