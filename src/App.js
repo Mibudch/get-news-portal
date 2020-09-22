@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './App.css'
 import Header from './Header.js'
 import { Route } from 'react-router-dom'
 import { getWeatherAPI, getRatesAPI, getTopNewsAPI, getBusinessNewsAPI, getNewsSearchAPI } from './sys/sysAPI.js'

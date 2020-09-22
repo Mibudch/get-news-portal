@@ -28,7 +28,7 @@ function SectionTopNews(props) {
                             <React.Fragment key={i}>
                                 <hr />
                                 <div ><span className='section-right__bottom-time'>{el.publishedAt.slice(11, 16)}</span> {el.title}</div>
-                                </React.Fragment>
+                            </React.Fragment>
                         )
                     })}
                 </div>

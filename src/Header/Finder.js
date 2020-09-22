@@ -1,9 +1,12 @@
 import React from 'react'
-function Finder(props){
-    return(
+import './Finder.css'
+function Finder(props) {
+    return (
         <h2>
-            <input type='text' onChange={props.getSearcValue}></input>
-            <button onClick={props.onclickSearch}>Найти</button>
+            <form>
+                <input type='text' onChange={props.getSearcValue}></input>
+                <button className='finder__button button_tick' onClick={props.onclickSearch}>Найти</button>
+            </form>
         </h2>
     )
 }
