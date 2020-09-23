@@ -1,11 +1,11 @@
 import React from 'react'
 import SectionTopNews from './SectionTopNews.js'
-import SectionBusinessNews from './SectionBusinessNews.js'
+// import SectionBusinessNews from './SectionBusinessNews.js'
 import './Style/Section.css'
 // import { withRouter } from 'react-router-dom'
 
 function Main(props) {
-
+    // console.log(props);
     return (
         <main>
             <SectionTopNews
@@ -14,7 +14,7 @@ function Main(props) {
                 leftBottomTopNews={props.topNews.slice(5, 10)}
             />
             <hr />
-            <section>
+            {/* <section>
                 {props.businessNews.map((el, i) => {
                     return (
                         <SectionBusinessNews
@@ -24,7 +24,7 @@ function Main(props) {
                         />
                     )
                 })}
-            </section>
+            </section> */}
         </main>
     )
 }

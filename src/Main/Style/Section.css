@@ -1,7 +1,6 @@
 .section__separator{
     margin-top: 5px;
     margin-bottom: 5px;
-    height: 50px;
     width: 100%;
     color: #fff;
     text-align: end;
@@ -14,6 +13,11 @@
 }
 ._fade{
     background-color: rgba(28, 29, 30, 0.589);
+}
+.section__catecory{
+    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-right: 120px;
 }
 .section__block{
     display: flex;

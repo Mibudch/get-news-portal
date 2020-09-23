@@ -4,7 +4,7 @@ import './Style/Section.css'
 function SectionTopNews(props) {
     return (
         <section >
-            <div className='section__separator _bg'><div className='section__separator _fade'> Топ новости</div></div>
+            <div className='section__separator _bg'><div className='section__separator _fade'><div className='section__catecory'>Топ новости</div></div></div>
             <div className='section__block'>
                 <div className='section-left__container'>
                     <img className='section-left__element' src={props.firstNews.urlToImage} alt='' title=''></img>

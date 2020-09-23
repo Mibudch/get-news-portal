@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Header from './Header/Header.js'
 import { Route } from 'react-router-dom'
-import { getWeatherAPI, getRatesAPI, getTopNewsAPI, getBusinessNewsAPI, getNewsSearchAPI } from './sys/sysAPI.js'
+import { getWeatherAPI, getRatesAPI, getTopNewsAPI, getTopBusinessNewsAPI, getNewsSearchAPI, getTopTechnologyNewsAPI } from './sys/sysAPI.js'
 import Main from './Main/Main.js'
 let searchValue = ''
 class App extends Component {
@@ -17,22 +17,23 @@ class App extends Component {
       currencyRates: [],
       ticker: '',
       topNews: [],
-      businessNews: [],
+      topBusinessNews: [],
       newsCategory: 'general',
-      sourceAPI: ''
+      topTechnologyNews: [],
     }
   }
 
   async componentDidMount() {
     try {
       const { lat, lon } = this.state
-      const [weather, currencyRates, topNews, businessNews] = await Promise.all([
+
+      const [getWeather, getCurrencyRates, getTopNews, getTopBusinessNews, getTopTechnologyNews] = await Promise.all([
         getWeatherAPI(lat, lon),
         getRatesAPI(),
         getTopNewsAPI(),
-        getBusinessNewsAPI(),
+        getTopBusinessNewsAPI(),
+        getTopTechnologyNewsAPI()
       ])
-
       if ("geolocation" in navigator && !this.state.isCurrentLocation) {
         navigator.geolocation.getCurrentPosition(position => {
           const lat = position.coords.latitude;
@@ -44,8 +45,13 @@ class App extends Component {
             })
         })
       }
-      const ticker = topNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
-      this.setState({ weather: weather.data, currencyRates: currencyRates.data, ticker: ticker, topNews: topNews.data.articles, businessNews: businessNews.data.articles, isLoading: true })
+      const ticker = getTopNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
+      const weather = getWeather.data
+      const currencyRates = getCurrencyRates.data
+      const topNews = getTopNews.data.articles
+      const topBusinessNews = getTopBusinessNews.data.articles
+      const topTechnologyNews = getTopTechnologyNews.data.articles
+      this.setState({ weather, currencyRates, ticker: ticker, topNews, topBusinessNews, topTechnologyNews, isLoading: true })
     } catch (e) {
       console.error(e)
     }
@@ -61,8 +67,14 @@ class App extends Component {
         this.setState({ news })
       })
   }
+  getNewsCategorysArray = () => {
+    const arr = []
+    const { topNews, topBusinessNews, topTechnologyNews } = this.state
+    arr.push(topNews, topBusinessNews, topTechnologyNews)
+    return arr
+  }
   render() {
-    console.log(this.state.weather);
+    // console.log();
     return this.state.isLoading && (
       <>
         <Route path='/'>
@@ -82,6 +94,7 @@ class App extends Component {
           />
           <Route exact path='/'>
             <Main
+              mainPageContent={this.getNewsCategorysArray()}
               topNews={this.state.topNews}
               businessNews={this.state.businessNews}
             />
