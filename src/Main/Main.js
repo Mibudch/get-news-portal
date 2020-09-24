@@ -1,30 +1,41 @@
 import React from 'react'
-import SectionTopNews from './SectionTopNews.js'
-// import SectionBusinessNews from './SectionBusinessNews.js'
+import SectionLeftAlign from './SectionLeftAlign.js'
+import SectionRightAlign from './SectionRightAlign.js'
 import './Style/Section.css'
-// import { withRouter } from 'react-router-dom'
+
 
 function Main(props) {
-    // console.log(props);
+// console.log(props);
     return (
         <main>
-            <SectionTopNews
+            {props.mainPageContent.map((elem, i) => {
+                return (
+                    (i % 2 === 0) ?
+                        < SectionLeftAlign
+                            key={i}
+                            firstNews={elem.find(el => el)}
+                            leftTopTopNews={elem.slice(1, 5)}
+                            leftBottomTopNews={elem.slice(5, 10)}
+                        /> :
+                        < SectionRightAlign
+                            key={i}
+                            firstNews={elem.find(el => el)}
+                            leftTopTopNews={elem.slice(1, 5)}
+                            leftBottomTopNews={elem.slice(5, 10)}
+                        />
+                )
+
+            })}
+            {/* <SectionLeftAlign
                 firstNews={props.topNews.find(el => el)}
                 leftTopTopNews={props.topNews.slice(1, 5)}
                 leftBottomTopNews={props.topNews.slice(5, 10)}
             />
-            <hr />
-            {/* <section>
-                {props.businessNews.map((el, i) => {
-                    return (
-                        <SectionBusinessNews
-                            key={i}
-                            businessNewsImage={el.urlToImage}
-                            businessNewsTitle={el.title}
-                        />
-                    )
-                })}
-            </section> */}
+            <SectionRightAlign
+                firstNews={props.topNews.find(el => el)}
+                leftTopTopNews={props.topNews.slice(1, 5)}
+                leftBottomTopNews={props.topNews.slice(5, 10)}
+            /> */}
         </main>
     )
 }

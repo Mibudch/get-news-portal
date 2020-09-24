@@ -48,9 +48,18 @@ class App extends Component {
       const ticker = getTopNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
       const weather = getWeather.data
       const currencyRates = getCurrencyRates.data
-      const topNews = getTopNews.data.articles
-      const topBusinessNews = getTopBusinessNews.data.articles
-      const topTechnologyNews = getTopTechnologyNews.data.articles
+      const topNews = getTopNews.data.articles.map(el => {
+        el['category'] = 'Главное'
+        return el
+      })
+      const topBusinessNews = getTopBusinessNews.data.articles.map(el => {
+        el['category'] = 'Бизнесс'
+        return el
+      })
+      const topTechnologyNews = getTopTechnologyNews.data.articles.map(el => {
+        el['category'] = 'Технологии'
+        return el
+      })
       this.setState({ weather, currencyRates, ticker: ticker, topNews, topBusinessNews, topTechnologyNews, isLoading: true })
     } catch (e) {
       console.error(e)
@@ -74,7 +83,7 @@ class App extends Component {
     return arr
   }
   render() {
-    // console.log();
+// console.log(this.getNewsCategorysArray());
     return this.state.isLoading && (
       <>
         <Route path='/'>
@@ -95,8 +104,6 @@ class App extends Component {
           <Route exact path='/'>
             <Main
               mainPageContent={this.getNewsCategorysArray()}
-              topNews={this.state.topNews}
-              businessNews={this.state.businessNews}
             />
           </Route>
         </Route>
