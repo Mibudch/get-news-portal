@@ -3,19 +3,19 @@ import './Style/Section.css'
 function SectionRightAlign(props) {
     return (
         <section >
-            <div className='section__separator _bg'><div className='section__separator _fade'><div className='section__catecory section__catecory_reverse'>{props.firstNews.category}</div></div></div>
+            <div className='section__separator _bg separator-text_reverse'><div className='section__separator _fade'><div className='section__catecory section__category_right-align'>{props.firstNews.category}</div></div></div>
             <div className='section__block block_reverse'>
                 <div className='section-left__container'>
-                    <img className='section-left__element' src={props.firstNews.urlToImage} alt='' title=''></img>
-                    <h2><div className='section-left__element'>{props.firstNews.title}</div></h2>
+                    <img className='section-left__img' src={props.firstNews.urlToImage} alt='' title=''></img>
+                    <h2><div className='section-left__text'>{props.firstNews.title}</div></h2>
                 </div>
                 <div className='section-right__block'>
                     <div className='section-right__container'>
                         {props.leftTopTopNews.map((el, i) => {
                             return (
                                 <div key={i} className='section-right__top-wrapper'>
-                                    <div className='section-right__top-element section-right__top-element_img'><div className='element_img' style={{ backgroundImage: `url(${el.urlToImage})` }}></div></div>
-                                    <div className='section-right__top-element section-right__top-element_text'>{el.title}</div>
+                                    <div className='section-right__img-container'><img className='section-right__img' src={el.urlToImage} alt='' ></img></div>
+                                    <div className='section-right__top-text-container'>{el.title}</div>
                                 </div>
                             )
                         })}

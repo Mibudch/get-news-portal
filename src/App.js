@@ -2,7 +2,18 @@ import React, { Component } from 'react'
 import './App.css'
 import Header from './Header/Header.js'
 import { Route } from 'react-router-dom'
-import { getWeatherAPI, getRatesAPI, getTopNewsAPI, getTopBusinessNewsAPI, getNewsSearchAPI, getTopTechnologyNewsAPI } from './sys/sysAPI.js'
+import {
+  getWeatherAPI,
+  getRatesAPI,
+  getNewsSearchAPI,
+  getTopNewsAPI,
+  getTopBusinessNewsAPI,
+  getTopTechnologyNewsAPI,
+  getTopEntertainmentNewsAPI,
+  getTopScienceNewsAPI,
+  getTopHealthNewsAPI,
+  getTopSportsNewsAPI
+} from './sys/sysAPI.js'
 import Main from './Main/Main.js'
 let searchValue = ''
 class App extends Component {
@@ -18,8 +29,11 @@ class App extends Component {
       ticker: '',
       topNews: [],
       topBusinessNews: [],
-      newsCategory: 'general',
       topTechnologyNews: [],
+      topEntertainmentNews: [],
+      topScienceNews: [],
+      topHealthNews: [],
+      topSportsNews: [],
     }
   }
 
@@ -27,12 +41,16 @@ class App extends Component {
     try {
       const { lat, lon } = this.state
 
-      const [getWeather, getCurrencyRates, getTopNews, getTopBusinessNews, getTopTechnologyNews] = await Promise.all([
+      const [getWeather, getCurrencyRates, getTopNews, getTopBusinessNews, getTopTechnologyNews, getTopEntertainmentNews, getTopScienceNews, getTopHealthNews, getTopSportsNews] = await Promise.all([
         getWeatherAPI(lat, lon),
         getRatesAPI(),
         getTopNewsAPI(),
         getTopBusinessNewsAPI(),
-        getTopTechnologyNewsAPI()
+        getTopTechnologyNewsAPI(),
+        getTopEntertainmentNewsAPI(),
+        getTopScienceNewsAPI(),
+        getTopHealthNewsAPI(),
+        getTopSportsNewsAPI(),
       ])
       if ("geolocation" in navigator && !this.state.isCurrentLocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -60,7 +78,23 @@ class App extends Component {
         el['category'] = 'Технологии'
         return el
       })
-      this.setState({ weather, currencyRates, ticker: ticker, topNews, topBusinessNews, topTechnologyNews, isLoading: true })
+      const topEntertainmentNews = getTopEntertainmentNews.data.articles.map(el => {
+        el['category'] = 'Медиа'
+        return el
+      })
+      const topScienceNews = getTopScienceNews.data.articles.map(el => {
+        el['category'] = 'Наука'
+        return el
+      })
+      const topHealthNews = getTopHealthNews.data.articles.map(el => {
+        el['category'] = 'Здоровье'
+        return el
+      })
+      const topSportsNews = getTopSportsNews.data.articles.map(el => {
+        el['category'] = 'Спорт'
+        return el
+      })
+      this.setState({ weather, currencyRates, ticker: ticker, topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews, isLoading: true })
     } catch (e) {
       console.error(e)
     }
@@ -78,12 +112,12 @@ class App extends Component {
   }
   getNewsCategorysArray = () => {
     const arr = []
-    const { topNews, topBusinessNews, topTechnologyNews } = this.state
-    arr.push(topNews, topBusinessNews, topTechnologyNews)
+    const { topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews } = this.state
+    arr.push(topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews)
     return arr
   }
   render() {
-// console.log(this.getNewsCategorysArray());
+    // console.log(this.getNewsCategorysArray());
     return this.state.isLoading && (
       <>
         <Route path='/'>
