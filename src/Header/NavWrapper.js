@@ -1,6 +1,6 @@
 import React from 'react'
 import './Style/NavWrapper.css'
-import { tagArray } from './TagArray.js'
+import { tagArray } from '../sys/TagArray.js'
 function NavWrapper(props) {
     return (
         <nav className='nav__container'>

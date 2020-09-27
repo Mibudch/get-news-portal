@@ -114,7 +114,7 @@ class App extends Component {
   getNewsCategorysArray = () => {
     const arr = []
     const { topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews } = this.state
-    arr.push(topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews)
+    arr.push(topNews.slice(0, 10), topBusinessNews.slice(0, 10), topTechnologyNews.slice(0, 10), topEntertainmentNews.slice(0, 10), topScienceNews.slice(0, 10), topHealthNews.slice(0, 10), topSportsNews.slice(0, 10))
     return arr
   }
   render() {

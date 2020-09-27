@@ -5,7 +5,7 @@ import './Style/Section.css'
 
 
 function Main(props) {
-// console.log(props);
+console.log(props);
     return (
         <main>
             {props.mainPageContent.map((elem, i) => {
@@ -16,6 +16,7 @@ function Main(props) {
                             firstNews={elem.find(el => el)}
                             leftTopTopNews={elem.slice(1, 5)}
                             leftBottomTopNews={elem.slice(5, 10)}
+                            // onClickTag={()=>props.history.push('/main' + props.newsTitle.toLowerCase())}
                         /> :
                         < SectionRightAlign
                             key={i}
@@ -24,18 +25,7 @@ function Main(props) {
                             leftBottomTopNews={elem.slice(5, 10)}
                         />
                 )
-
             })}
-            {/* <SectionLeftAlign
-                firstNews={props.topNews.find(el => el)}
-                leftTopTopNews={props.topNews.slice(1, 5)}
-                leftBottomTopNews={props.topNews.slice(5, 10)}
-            />
-            <SectionRightAlign
-                firstNews={props.topNews.find(el => el)}
-                leftTopTopNews={props.topNews.slice(1, 5)}
-                leftBottomTopNews={props.topNews.slice(5, 10)}
-            /> */}
         </main>
     )
 }
