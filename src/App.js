@@ -15,6 +15,7 @@ import {
   getTopSportsNewsAPI
 } from './sys/sysAPI.js'
 import Main from './Main/Main.js'
+import Footer from './Footer/Footer.js'
 let searchValue = ''
 class App extends Component {
   constructor(props) {
@@ -140,9 +141,10 @@ class App extends Component {
               mainPageContent={this.getNewsCategorysArray()}
             />
           </Route>
+          <Route path='/weather'><span>Погода</span></Route>
+          <Route path='/rates'><span>Курсы валют</span></Route>
+          <Footer path='/' />
         </Route>
-        <Route path='/weather'><span>Погода</span></Route>
-        <Route path='/rates'><span>Курсы валют</span></Route>
       </>
     )
   }
