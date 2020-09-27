@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
-import Header from './Header/Header.js'
 import { Route } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import Header from './Header/Header.js'
 import {
   getWeatherAPI,
   getRatesAPI,
@@ -16,6 +17,7 @@ import {
 } from './sys/sysAPI.js'
 import Main from './Main/Main.js'
 import Footer from './Footer/Footer.js'
+import SectionCategory from './Main/SectionCategory.js'
 let searchValue = ''
 class App extends Component {
   constructor(props) {
@@ -35,6 +37,7 @@ class App extends Component {
       topScienceNews: [],
       topHealthNews: [],
       topSportsNews: [],
+      categoryContent: []
     }
   }
 
@@ -117,8 +120,14 @@ class App extends Component {
     arr.push(topNews.slice(0, 10), topBusinessNews.slice(0, 10), topTechnologyNews.slice(0, 10), topEntertainmentNews.slice(0, 10), topScienceNews.slice(0, 10), topHealthNews.slice(0, 10), topSportsNews.slice(0, 10))
     return arr
   }
+  handlerOnClick = (path) => {
+    if (path.toLowerCase() === 'главное') {
+      const { topNews } = this.state
+      this.setState({ categoryContent: topNews })
+    }
+    this.props.history.push(`category/${path.toLowerCase()}`)
+  }
   render() {
-    // console.log(this.getNewsCategorysArray());
     return this.state.isLoading && (
       <>
         <Route path='/'>
@@ -139,14 +148,26 @@ class App extends Component {
           <Route exact path='/'>
             <Main
               mainPageContent={this.getNewsCategorysArray()}
+              handlerOnClick={this.handlerOnClick}
             />
           </Route>
           <Route path='/weather'><span>Погода</span></Route>
           <Route path='/rates'><span>Курсы валют</span></Route>
+          <Route path='/category/:name'>
+            {this.state.topNews.map((el, i) => {
+              return (
+                <SectionCategory
+                  key={i}
+                  image={el.urlToImage}
+                  title={el.title}
+                />
+              )
+            })}
+          </Route>
           <Footer path='/' />
         </Route>
       </>
     )
   }
 }
-export default App
+export default withRouter(App)

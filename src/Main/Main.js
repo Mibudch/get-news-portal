@@ -3,9 +3,8 @@ import SectionLeftAlign from './SectionLeftAlign.js'
 import SectionRightAlign from './SectionRightAlign.js'
 import './Style/Section.css'
 
-
 function Main(props) {
-console.log(props);
+// console.log(props)
     return (
         <main>
             {props.mainPageContent.map((elem, i) => {
@@ -16,7 +15,7 @@ console.log(props);
                             firstNews={elem.find(el => el)}
                             leftTopTopNews={elem.slice(1, 5)}
                             leftBottomTopNews={elem.slice(5, 10)}
-                            // onClickTag={()=>props.history.push('/main' + props.newsTitle.toLowerCase())}
+                            handlerOnClick={props.handlerOnClick}
                         /> :
                         < SectionRightAlign
                             key={i}
@@ -30,5 +29,3 @@ console.log(props);
     )
 }
 export default Main
-
-// onClick={()=>props.history.push('/main' + props.newsTitle.toLowerCase())}
