@@ -3,7 +3,7 @@ import './Style/Section.css'
 function SectionRightAlign(props) {
     return (
         <section >
-            <div className='section__separator _bg separator-text_reverse'><div className='section__separator _fade'><div className='section__catecory section__category_right-align'>{props.firstNews.category}</div></div></div>
+            <div className='section__separator _bg separator-text_reverse'><div className='section__separator _fade'><div className='section__catecory section__category_right-align'>{props.firstNews.category.toUpperCase()}</div></div></div>
             <div className='section__block block_reverse'>
                 <div className='section-left__container'>
                     <img className='section-left__img' src={props.firstNews.urlToImage} alt='' title=''></img>

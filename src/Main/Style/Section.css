@@ -3,8 +3,9 @@
     margin-bottom: 5px;
     width: 100%;
     color: #fff;
-    font-size: 45px;
+    font-size: 40px;
     font-weight: bolder;
+    letter-spacing: 2px;
 }
 .separator-text_reverse{
     text-align: end;
@@ -82,3 +83,20 @@
     color: #CF1717FF;
     font-weight: 600;
 }
+.section-tag__container{
+    display: flex;
+    
+}
+.section-tag__image-wrapper{
+    width: 30%;
+}
+.section-tag__image{
+    width: 100%;
+    height: auto;
+}
+.section-tag__text-wrapper{
+    width: 60%;
+}
+/* .section-tag__title{
+    border-bottom: 2px solid #333;
+} */
