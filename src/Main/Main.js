@@ -4,7 +4,6 @@ import SectionRightAlign from './SectionRightAlign.js'
 import './Style/Section.css'
 
 function Main(props) {
-// console.log(props)
     return (
         <main>
             {props.mainPageContent.map((elem, i) => {

@@ -154,15 +154,7 @@ class App extends Component {
           <Route path='/weather'><span>Погода</span></Route>
           <Route path='/rates'><span>Курсы валют</span></Route>
           <Route path='/category/:name'>
-            {this.state.topNews.map((el, i) => {
-              return (
-                <SectionCategory
-                  key={i}
-                  image={el.urlToImage}
-                  title={el.title}
-                />
-              )
-            })}
+                <SectionCategory content={this.state.categoryContent}/>
           </Route>
           <Footer path='/' />
         </Route>
