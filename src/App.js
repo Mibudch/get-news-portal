@@ -3,6 +3,7 @@ import './App.css'
 import { Route } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 import Header from './Header/Header.js'
+import { IoIosArrowDropupCircle } from 'react-icons/io'
 import {
   getWeatherAPI,
   getRatesAPI,
@@ -26,6 +27,7 @@ class App extends Component {
       weather: {},
       isLoading: false,
       isCurrentLocation: false,
+      isScrollbackVisible: false,
       lat: 53.893009,
       lon: 27.567444,
       currencyRates: [],
@@ -44,7 +46,7 @@ class App extends Component {
   async componentDidMount() {
     try {
       const { lat, lon } = this.state
-
+      const scrollComponent = this
       const [getWeather, getCurrencyRates, getTopNews, getTopBusinessNews, getTopTechnologyNews, getTopEntertainmentNews, getTopScienceNews, getTopHealthNews, getTopSportsNews] = await Promise.all([
         getWeatherAPI(lat, lon),
         getRatesAPI(),
@@ -56,6 +58,9 @@ class App extends Component {
         getTopHealthNewsAPI(),
         getTopSportsNewsAPI(),
       ])
+      window.addEventListener("scroll", function(e) {
+        scrollComponent.toggleVisibility()
+      });
       if ("geolocation" in navigator && !this.state.isCurrentLocation) {
         navigator.geolocation.getCurrentPosition(position => {
           const lat = position.coords.latitude;
@@ -125,7 +130,16 @@ class App extends Component {
     const category = pathArr[pathArr.length - 1]
     return category.charAt(0).toUpperCase() + category.slice(1)
   }
+  toggleVisibility() {
+    if (window.pageYOffset > 300) {
+      this.setState({isScrollbackVisible: true})
+    } else {
+      this.setState({isScrollbackVisible: false})
+    }
+  }
+  handlerScrollBack = () => (window.scrollTo({ top: 0, behavior: 'smooth' }))
   render() {
+    console.log('render');
     return this.state.isLoading && (
       <>
         <Route path='/'>
@@ -150,8 +164,11 @@ class App extends Component {
           </Route>
           <Route path='/weather'><span>Погода</span></Route>
           <Route path='/rates'><span>Курсы валют</span></Route>
-          <Route path='/category/:name'><SectionCategory categoryContent={this.getNewsCategorysArray()}/></Route>
+          <Route path='/category/:name'><SectionCategory categoryContent={this.getNewsCategorysArray()} /></Route>
           <Footer path='/' />
+
+          {this.state.isScrollbackVisible ? <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} /> : null}
+
         </Route>
       </>
     )

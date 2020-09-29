@@ -111,3 +111,12 @@
     display: flex;
     justify-content: space-between;
 }
+.section__scrollBack{
+    height: 45px;
+    width: 45px;
+    position: fixed;
+    top: 90%;
+    right: 3%;
+    color: grey;
+    opacity: 0.6;
+}

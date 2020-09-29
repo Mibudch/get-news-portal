@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 
 function SectionCategory(props) {
     const categoryName = props.match.params.name.charAt(0).toUpperCase() + props.match.params.name.slice(1)
+    
     const currentCategory = () => {
         let arr = []
         for (let elem of props.categoryContent) {
