@@ -14,7 +14,6 @@ function Main(props) {
                             firstNews={elem.find(el => el)}
                             leftTopTopNews={elem.slice(1, 5)}
                             leftBottomTopNews={elem.slice(5, 10)}
-                            handlerOnClick={props.handlerOnClick}
                         /> :
                         < SectionRightAlign
                             key={i}

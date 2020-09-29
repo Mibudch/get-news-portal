@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom'
 function SectionLeftAlign(props) {
     return (
         <section >
-                <div className='section__separator _bg' onClick={props.handlerOnClick.bind(this, props.firstNews.category)}><div className='section__separator _fade'><div className='section__catecory section__catecory_left-align'>{props.firstNews.category.toUpperCase()}</div></div></div>
+                <div className='section__separator _bg' onClick={()=>props.history.push(`category/${props.firstNews.category.toLowerCase()}`)}><div className='section__separator _fade'><div className='section__catecory section__catecory_left-align'>{props.firstNews.category.toUpperCase()}</div></div></div>
             <div className='section__block'>
                 <div className='section-left__container'>
                     <img className='section-left__img' src={props.firstNews.urlToImage} alt='' title=''></img>
@@ -26,7 +26,7 @@ function SectionLeftAlign(props) {
                             return (
                                 <React.Fragment key={i}>
                                     <hr />
-                                    <div ><span className='section-right__bottom-time'>{el.publishedAt.slice(11, 16)}</span> {el.title}</div>
+                                    <div ><span className='section__time'>{el.publishedAt.slice(11, 16)}</span> {el.title}</div>
                                 </React.Fragment>
                             )
                         })}

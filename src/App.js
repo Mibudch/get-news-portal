@@ -120,12 +120,10 @@ class App extends Component {
     arr.push(topNews.slice(0, 10), topBusinessNews.slice(0, 10), topTechnologyNews.slice(0, 10), topEntertainmentNews.slice(0, 10), topScienceNews.slice(0, 10), topHealthNews.slice(0, 10), topSportsNews.slice(0, 10))
     return arr
   }
-  handlerOnClick = (path) => {
-    if (path.toLowerCase() === 'главное') {
-      const { topNews } = this.state
-      this.setState({ categoryContent: topNews })
-    }
-    this.props.history.push(`category/${path.toLowerCase()}`)
+  getRoutedCategory = () => {
+    const pathArr = this.props.location.pathname.split('/')
+    const category = pathArr[pathArr.length - 1]
+    return category.charAt(0).toUpperCase() + category.slice(1)
   }
   render() {
     return this.state.isLoading && (
@@ -148,14 +146,18 @@ class App extends Component {
           <Route exact path='/'>
             <Main
               mainPageContent={this.getNewsCategorysArray()}
-              handlerOnClick={this.handlerOnClick}
             />
           </Route>
           <Route path='/weather'><span>Погода</span></Route>
           <Route path='/rates'><span>Курсы валют</span></Route>
-          <Route path='/category/:name'>
-                <SectionCategory content={this.state.categoryContent}/>
-          </Route>
+          <Route path='/category/:name'><SectionCategory categoryContent={this.getNewsCategorysArray()}/></Route>
+          {/* <Route exact path='/category/главное'><SectionCategory content={this.state.topNews} /></Route>
+          <Route exact path='/category/бизнесс' ><SectionCategory content={this.state.topBusinessNews} /></Route>
+          <Route exact path='/category/технологии'><SectionCategory content={this.state.topTechnologyNews} /></Route>
+          <Route exact path='/category/медиа' ><SectionCategory content={this.state.topEntertainmentNews} /></Route>
+          <Route exact path='/category/наука'><SectionCategory content={this.state.topScienceNews} /></Route>
+          <Route exact path='/category/здоровье'><SectionCategory content={this.state.topHealthNews} /></Route>
+          <Route exact path='/category/спорт' ><SectionCategory content={this.state.topSportsNews} /></Route> */}
           <Footer path='/' />
         </Route>
       </>
