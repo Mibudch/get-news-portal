@@ -151,13 +151,6 @@ class App extends Component {
           <Route path='/weather'><span>Погода</span></Route>
           <Route path='/rates'><span>Курсы валют</span></Route>
           <Route path='/category/:name'><SectionCategory categoryContent={this.getNewsCategorysArray()}/></Route>
-          {/* <Route exact path='/category/главное'><SectionCategory content={this.state.topNews} /></Route>
-          <Route exact path='/category/бизнесс' ><SectionCategory content={this.state.topBusinessNews} /></Route>
-          <Route exact path='/category/технологии'><SectionCategory content={this.state.topTechnologyNews} /></Route>
-          <Route exact path='/category/медиа' ><SectionCategory content={this.state.topEntertainmentNews} /></Route>
-          <Route exact path='/category/наука'><SectionCategory content={this.state.topScienceNews} /></Route>
-          <Route exact path='/category/здоровье'><SectionCategory content={this.state.topHealthNews} /></Route>
-          <Route exact path='/category/спорт' ><SectionCategory content={this.state.topSportsNews} /></Route> */}
           <Footer path='/' />
         </Route>
       </>
