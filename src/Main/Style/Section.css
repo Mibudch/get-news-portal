@@ -6,6 +6,7 @@
     font-size: 40px;
     font-weight: bolder;
     letter-spacing: 2px;
+    cursor: pointer;
 }
 .separator-text_reverse{
     text-align: end;
@@ -119,4 +120,5 @@
     right: 3%;
     color: grey;
     opacity: 0.6;
+    cursor: pointer;
 }

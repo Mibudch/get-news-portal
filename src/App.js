@@ -59,7 +59,8 @@ class App extends Component {
         getTopSportsNewsAPI(),
       ])
       window.addEventListener('scroll', () => {
-        this.scrollOpen()
+        console.log('2222')
+        this.scrollToggle()
       })
       if ("geolocation" in navigator && !this.state.isCurrentLocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -130,11 +131,12 @@ class App extends Component {
     const category = pathArr[pathArr.length - 1]
     return category.charAt(0).toUpperCase() + category.slice(1)
   }
-  scrollOpen = () => {
-    if (window.pageYOffset < 400) {
+  scrollToggle = () => {
+    const {isScrollbackVisible} = this.state
+    if (isScrollbackVisible && window.pageYOffset < 400) {
       this.setState({ isScrollbackVisible: false })
     }
-    if (window.pageYOffset > 401) {
+    if (!isScrollbackVisible && window.pageYOffset > 400) {
       this.setState({ isScrollbackVisible: true })
     }
   }
@@ -168,7 +170,7 @@ class App extends Component {
           <Route path='/category/:name'><SectionCategory categoryContent={this.getNewsCategorysArray()} /></Route>
           <Footer path='/' />
 
-          {this.state.isScrollbackVisible ? <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} /> : null}
+          {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
 
         </Route>
       </>
