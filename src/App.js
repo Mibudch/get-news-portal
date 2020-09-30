@@ -26,6 +26,7 @@ class App extends Component {
     this.state = {
       weather: {},
       isLoading: false,
+      flag: false,
       isCurrentLocation: false,
       isScrollbackVisible: false,
       lat: 53.893009,
@@ -46,7 +47,6 @@ class App extends Component {
   async componentDidMount() {
     try {
       const { lat, lon } = this.state
-      const scrollComponent = this
       const [getWeather, getCurrencyRates, getTopNews, getTopBusinessNews, getTopTechnologyNews, getTopEntertainmentNews, getTopScienceNews, getTopHealthNews, getTopSportsNews] = await Promise.all([
         getWeatherAPI(lat, lon),
         getRatesAPI(),
@@ -58,9 +58,9 @@ class App extends Component {
         getTopHealthNewsAPI(),
         getTopSportsNewsAPI(),
       ])
-      window.addEventListener("scroll", function(e) {
-        scrollComponent.toggleVisibility()
-      });
+      window.addEventListener('scroll', () => {
+        this.scrollOpen()
+      })
       if ("geolocation" in navigator && !this.state.isCurrentLocation) {
         navigator.geolocation.getCurrentPosition(position => {
           const lat = position.coords.latitude;
@@ -130,16 +130,17 @@ class App extends Component {
     const category = pathArr[pathArr.length - 1]
     return category.charAt(0).toUpperCase() + category.slice(1)
   }
-  toggleVisibility() {
-    if (window.pageYOffset > 300) {
-      this.setState({isScrollbackVisible: true})
-    } else {
-      this.setState({isScrollbackVisible: false})
+  scrollOpen = () => {
+    if (window.pageYOffset < 400) {
+      this.setState({ isScrollbackVisible: false })
+    }
+    if (window.pageYOffset > 401) {
+      this.setState({ isScrollbackVisible: true })
     }
   }
   handlerScrollBack = () => (window.scrollTo({ top: 0, behavior: 'smooth' }))
   render() {
-    console.log('render');
+    console.log('render', this.state.isScrollbackVisible)
     return this.state.isLoading && (
       <>
         <Route path='/'>
