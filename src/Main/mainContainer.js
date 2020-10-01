@@ -30,10 +30,7 @@ class MainContainer extends Component {
             const { categoryContent } = this.state
             categoryContent.push(getTopNews.data.articles, getTopBusinessNews.data.articles, getTopTechnologyNews.data.articles, getTopEntertainmentNews.data.articles, getTopScienceNews.data.articles, getTopHealthNews.data.articles, getTopSportsNews.data.articles)
             categoryContent.map((elem, ind) => {
-                return elem.map((el, i) => {
-                    el.category = tagArray[ind].category
-                    return el
-                })
+                return elem.map(el => el.category = tagArray[ind].category)
             })
             this.setState({ categoryContent })
         } catch (e) {
