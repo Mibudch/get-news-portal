@@ -3,22 +3,12 @@ import './App.css'
 import { Route } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 import Header from './Header/Header.js'
+import MainContainer from './Main/mainContainer.js'
 import { IoIosArrowDropupCircle } from 'react-icons/io'
-import {
-  getWeatherAPI,
-  getRatesAPI,
-  getNewsSearchAPI,
-  getTopNewsAPI,
-  getTopBusinessNewsAPI,
-  getTopTechnologyNewsAPI,
-  getTopEntertainmentNewsAPI,
-  getTopScienceNewsAPI,
-  getTopHealthNewsAPI,
-  getTopSportsNewsAPI
-} from './sys/sysAPI.js'
-import Main from './Main/Main.js'
+import { getWeatherAPI, getRatesAPI, getNewsSearchAPI, getTopNewsAPI } from './sys/sysAPI.js'
+// import Main from './Main/Main.js'
 import Footer from './Footer/Footer.js'
-import SectionCategory from './Main/SectionCategory.js'
+// import SectionCategory from './Main/SectionCategory.js'
 let searchValue = ''
 class App extends Component {
   constructor(props) {
@@ -26,7 +16,6 @@ class App extends Component {
     this.state = {
       weather: {},
       isLoading: false,
-      flag: false,
       isCurrentLocation: false,
       isScrollbackVisible: false,
       lat: 53.893009,
@@ -34,32 +23,17 @@ class App extends Component {
       currencyRates: [],
       ticker: '',
       topNews: [],
-      topBusinessNews: [],
-      topTechnologyNews: [],
-      topEntertainmentNews: [],
-      topScienceNews: [],
-      topHealthNews: [],
-      topSportsNews: [],
-      categoryContent: []
     }
   }
-
   async componentDidMount() {
     try {
       const { lat, lon } = this.state
-      const [getWeather, getCurrencyRates, getTopNews, getTopBusinessNews, getTopTechnologyNews, getTopEntertainmentNews, getTopScienceNews, getTopHealthNews, getTopSportsNews] = await Promise.all([
+      const [getWeather, getCurrencyRates, getTopNews] = await Promise.all([
         getWeatherAPI(lat, lon),
         getRatesAPI(),
-        getTopNewsAPI(),
-        getTopBusinessNewsAPI(),
-        getTopTechnologyNewsAPI(),
-        getTopEntertainmentNewsAPI(),
-        getTopScienceNewsAPI(),
-        getTopHealthNewsAPI(),
-        getTopSportsNewsAPI(),
+        getTopNewsAPI()
       ])
       window.addEventListener('scroll', () => {
-        console.log('2222')
         this.scrollToggle()
       })
       if ("geolocation" in navigator && !this.state.isCurrentLocation) {
@@ -76,35 +50,7 @@ class App extends Component {
       const ticker = getTopNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
       const weather = getWeather.data
       const currencyRates = getCurrencyRates.data
-      const topNews = getTopNews.data.articles.map(el => {
-        el['category'] = 'Главное'
-        return el
-      })
-      const topBusinessNews = getTopBusinessNews.data.articles.map(el => {
-        el['category'] = 'Бизнесс'
-        return el
-      })
-      const topTechnologyNews = getTopTechnologyNews.data.articles.map(el => {
-        el['category'] = 'Технологии'
-        return el
-      })
-      const topEntertainmentNews = getTopEntertainmentNews.data.articles.map(el => {
-        el['category'] = 'Медиа'
-        return el
-      })
-      const topScienceNews = getTopScienceNews.data.articles.map(el => {
-        el['category'] = 'Наука'
-        return el
-      })
-      const topHealthNews = getTopHealthNews.data.articles.map(el => {
-        el['category'] = 'Здоровье'
-        return el
-      })
-      const topSportsNews = getTopSportsNews.data.articles.map(el => {
-        el['category'] = 'Спорт'
-        return el
-      })
-      this.setState({ weather, currencyRates, ticker: ticker, topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews, isLoading: true })
+      this.setState({ weather, currencyRates, ticker: ticker, isLoading: true })
     } catch (e) {
       console.error(e)
     }
@@ -120,19 +66,14 @@ class App extends Component {
         this.setState({ news })
       })
   }
-  getNewsCategorysArray = () => {
-    const arr = []
-    const { topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews } = this.state
-    arr.push(topNews.slice(0, 10), topBusinessNews.slice(0, 10), topTechnologyNews.slice(0, 10), topEntertainmentNews.slice(0, 10), topScienceNews.slice(0, 10), topHealthNews.slice(0, 10), topSportsNews.slice(0, 10))
-    return arr
-  }
-  getRoutedCategory = () => {
-    const pathArr = this.props.location.pathname.split('/')
-    const category = pathArr[pathArr.length - 1]
-    return category.charAt(0).toUpperCase() + category.slice(1)
-  }
+  // getNewsCategorysArray = () => {
+  //   const arr = []
+  //   const { topNews, topBusinessNews, topTechnologyNews, topEntertainmentNews, topScienceNews, topHealthNews, topSportsNews } = this.state
+  //   arr.push(topNews.slice(0, 10), topBusinessNews.slice(0, 10), topTechnologyNews.slice(0, 10), topEntertainmentNews.slice(0, 10), topScienceNews.slice(0, 10), topHealthNews.slice(0, 10), topSportsNews.slice(0, 10))
+  //   return arr
+  // }
   scrollToggle = () => {
-    const {isScrollbackVisible} = this.state
+    const { isScrollbackVisible } = this.state
     if (isScrollbackVisible && window.pageYOffset < 400) {
       this.setState({ isScrollbackVisible: false })
     }
@@ -142,7 +83,6 @@ class App extends Component {
   }
   handlerScrollBack = () => (window.scrollTo({ top: 0, behavior: 'smooth' }))
   render() {
-    console.log('render', this.state.isScrollbackVisible)
     return this.state.isLoading && (
       <>
         <Route path='/'>
@@ -161,13 +101,14 @@ class App extends Component {
             onclickSearch={this.handlerOnclickSearch}
           />
           <Route exact path='/'>
-            <Main
+            <MainContainer />
+            {/* <Main
               mainPageContent={this.getNewsCategorysArray()}
-            />
+            /> */}
           </Route>
           <Route path='/weather'><span>Погода</span></Route>
           <Route path='/rates'><span>Курсы валют</span></Route>
-          <Route path='/category/:name'><SectionCategory categoryContent={this.getNewsCategorysArray()} /></Route>
+          {/* <Route path='/category/:name'><SectionCategory categoryContent={this.getNewsCategorysArray()} /></Route> */}
           <Footer path='/' />
 
           {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
