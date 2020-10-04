@@ -42,6 +42,7 @@ class MainContainer extends Component {
                         return (
                             <AllNewsSection
                                 key={i}
+                                indx={i}
                                 newsCategory={el[i].category}
                                 mainNews={el[0]}
                                 topSideNews={el.slice(1, 5)}

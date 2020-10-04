@@ -7,7 +7,7 @@ function NavWrapper(props) {
             {tagArray.map((el, i) => {
                 return (
                     <li key={i}>
-                        <button value={el.category} onClick={props.onclickTag} className='nav__element'>{el.tagName}</button>
+                        <button value={el.category} onClick={props.onclickTag} className='nav__element'>{el.category}</button>
                     </li>
                 )
             })}

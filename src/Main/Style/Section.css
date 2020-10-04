@@ -10,7 +10,7 @@
     letter-spacing: 2px;
     cursor: pointer;
 }
-.separator-text_reverse{
+.banner-text_reverse{
     text-align: end;
 }
 .banner__container_fade{
@@ -23,7 +23,7 @@
 .banner-text_left-align{
     padding-left: 100px;
 }
-.section__category_right-align{
+.banner-text_right-align{
     padding-right: 120px;
 }
 .news__block{

@@ -6,9 +6,7 @@ import Header from './Header/Header.js'
 import MainContainer from './Main/mainContainer.js'
 import { IoIosArrowDropupCircle } from 'react-icons/io'
 import { getWeatherAPI, getRatesAPI, getNewsSearchAPI, getTopNewsAPI } from './sys/sysAPI.js'
-// import Main from './Main/Main.js'
 import Footer from './Footer/Footer.js'
-// import SectionCategory from './Main/SectionCategory.js'
 let searchValue = ''
 class App extends Component {
   constructor(props) {

@@ -2,24 +2,22 @@ import React from 'react'
 import './Style/Section.css'
 import { withRouter } from 'react-router-dom'
 function AllNewsSection(props) {
-    // let reverse = ''
-    // const { newsCategory } = props
-    // newsCategory.map(el => console.log(el))
-    // if (props.key % 2 === 0) {
-    //     align = 'banner-text_left-align'
-    // } 
-    // if (props.key % 2 === 1){
-    //     align = 'section__category_right-align'
-    // }
-    // console.log(newsCategory);
+    let alignStyle = {}
+    if (props.indx % 2 === 0) {
+        alignStyle.bannerAlignModify = 'banner-text_left-align'
+    } else {
+        alignStyle.bannerTextReverse = 'banner-text_reverse'
+        alignStyle.bannerAlignModify = 'banner-text_right-align'
+        alignStyle.newsBlockReverse ='block_reverse'
+    }
     const handlerOnClick = () => {
         props.history.push(`${props.newsCategory.toLowerCase()}`)
         window.scrollTo({ top: 0 })
     }
     return (
         <section >
-            <div className='banner__container' onClick={handlerOnClick}><div className='banner__container_fade'><div className={`banner-text ${'banner-text_left-align'}`}>{props.newsCategory.toUpperCase()}</div></div></div>
-            <div className='news__block'>
+            <div className={`banner__container ${alignStyle.bannerTextReverse}`} onClick={handlerOnClick}><div className='banner__container_fade'><div className={`banner-text ${alignStyle.bannerAlignModify}`}>{props.newsCategory.toUpperCase()}</div></div></div>
+            <div className={`news__block ${alignStyle.newsBlockReverse}`}>
                 <div className='main-news__container'>
                     <img className='main-news__img' src={props.mainNews.urlToImage} alt='' title=''></img>
                     <h2><div className='main-news__text'>{props.mainNews.title}</div></h2>
