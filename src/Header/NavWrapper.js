@@ -1,5 +1,5 @@
 import React from 'react'
-import './Style/NavWrapper.css'
+import './style/navWrapper.css'
 import { tagArray } from '../sys/TagArray.js'
 function NavWrapper(props) {
     return (

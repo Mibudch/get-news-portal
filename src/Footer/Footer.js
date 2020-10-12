@@ -1,5 +1,5 @@
 import React from 'react'
-import './Style/Footer.css'
+import './style/footer.css'
 import { GrLinkedin, GrFacebook } from 'react-icons/gr'
 import { FaTelegramPlane } from 'react-icons/fa'
 import { BiCopyright } from 'react-icons/bi'

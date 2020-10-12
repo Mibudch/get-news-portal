@@ -1,5 +1,5 @@
 import React from 'react'
-import './Style/HeaderAdvBlock.css'
+import './style/headerAdvBlock.css'
 function HeaderAdvBlock() {
     return (
         <div className='sample' ></div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Marquee from 'react-double-marquee'
-import './Style/Ticker.css'
+import './style/ticker.css'
 
 function Ticker(props) {
     return (

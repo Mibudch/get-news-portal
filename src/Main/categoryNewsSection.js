@@ -1,4 +1,5 @@
 import React from 'react'
+import './style/section.css'
 import { withRouter } from 'react-router-dom'
 function CategoryNewsSection(props) {
     const categoryName = props.match.params.name.charAt(0).toUpperCase() + props.match.params.name.slice(1)
@@ -15,7 +16,6 @@ function CategoryNewsSection(props) {
     }
     return (
         <section>
-            {console.log(currentNewsCategory())}
             <div className='banner__container'>
                 <div className='banner__container_fade'>
                     <div className='banner-text banner-text_left-align'>{props.match.params.name.toUpperCase()}</div>

@@ -1,68 +1,21 @@
 import React, { Component } from 'react'
-import './App.css'
-import { Route } from 'react-router-dom'
-import { withRouter } from 'react-router-dom'
-import Header from './Header/Header.js'
-import MainContainer from './Main/mainContainer.js'
+import MainContainer from './main/mainContainer.js'
+import HeaderContainer from './header/headerContainer.js'
+import Footer from './footer/footer.js'
 import { IoIosArrowDropupCircle } from 'react-icons/io'
-import { getWeatherAPI, getRatesAPI, getNewsSearchAPI, getTopNewsAPI } from './sys/sysAPI.js'
-import Footer from './Footer/Footer.js'
-let searchValue = ''
+import { Route, withRouter } from 'react-router-dom'
+import './App.css'
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      weather: {},
-      isLoading: false,
-      isCurrentLocation: false,
       isScrollbackVisible: false,
-      lat: 53.893009,
-      lon: 27.567444,
-      currencyRates: [],
-      ticker: '',
-      topNews: [],
     }
   }
-  async componentDidMount() {
-    try {
-      const { lat, lon } = this.state
-      const [getWeather, getCurrencyRates, getTopNews] = await Promise.all([
-        getWeatherAPI(lat, lon),
-        getRatesAPI(),
-        getTopNewsAPI()
-      ])
-      window.addEventListener('scroll', () => {
-        this.scrollToggle()
-      })
-      if ("geolocation" in navigator && !this.state.isCurrentLocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          getWeatherAPI(lat, lon)
-            .then(res => {
-              const weather = res.data
-              this.setState({ weather, isCurrentLocation: true })
-            })
-        })
-      }
-      const ticker = getTopNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
-      const weather = getWeather.data
-      const currencyRates = getCurrencyRates.data
-      this.setState({ weather, currencyRates, ticker: ticker, isLoading: true })
-    } catch (e) {
-      console.error(e)
-    }
-  }
-  getSearcValue = (event) => {
-    searchValue = event.target.value
-  }
-  handlerOnclickSearch = () => {
-    const request = searchValue.split(' ').join('+')
-    getNewsSearchAPI(request)
-      .then(res => {
-        const news = res.data.articles
-        this.setState({ news })
-      })
+  componentDidMount() {
+    window.addEventListener('scroll', () => {
+      this.scrollToggle()
+    })
   }
   scrollToggle = () => {
     const { isScrollbackVisible } = this.state
@@ -75,29 +28,13 @@ class App extends Component {
   }
   handlerScrollBack = () => (window.scrollTo({ top: 0, behavior: 'smooth' }))
   render() {
-    return this.state.isLoading && (
+    return (
       <>
         <Route path='/'>
-          <Header
-            place={this.state.weather.name}
-            icon={this.state.weather.weather[0].icon}
-            iconDescription={this.state.weather.weather[0].description}
-            temperature={this.state.weather.main.temp}
-            tempFeelsLike={this.state.weather.main.feels_like}
-            usdRate={this.state.currencyRates[4].Cur_OfficialRate}
-            eurRate={this.state.currencyRates[5].Cur_OfficialRate}
-            rubRate={this.state.currencyRates[16].Cur_OfficialRate}
-            ticker={this.state.ticker}
-            onclickTag={this.handlerOnclickTag}
-            getSearcValue={this.getSearcValue}
-            onclickSearch={this.handlerOnclickSearch}
-          />
+          <HeaderContainer />
+          <MainContainer />
+          <Footer/>
         </Route>
-        <Route path='/'><MainContainer /></Route>
-        <Route path='/weather'><span>Погода</span></Route>
-        <Route path='/rates'><span>Курсы валют</span></Route>
-        <Footer path='/' />
-
         {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
       </>
     )

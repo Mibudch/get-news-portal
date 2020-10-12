@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { tagArray } from '../sys/TagArray.js'
 import AllNewsSection from './allNewsSection.js'
-import { Route, withRouter } from 'react-router-dom'
 import CategoryNewsSection from './categoryNewsSection.js'
+import SingleNewsSection from './singleNewsSection.js'
+import { Route, withRouter } from 'react-router-dom'
 import { getTopNewsAPI, getTopBusinessNewsAPI, getTopTechnologyNewsAPI, getTopEntertainmentNewsAPI, getTopScienceNewsAPI, getTopHealthNewsAPI, getTopSportsNewsAPI } from '../sys/sysAPI'
 class MainContainer extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class MainContainer extends Component {
         this.state = {
             isLoading: false,
             allNews: [],
+            singleNewsContent: undefined,
         }
     }
     async componentDidMount() {
@@ -34,24 +36,27 @@ class MainContainer extends Component {
             console.log(e);
         }
     }
+    handlerCaregoryOnClick = (arg) => {
+        this.props.history.push(`category/${arg.toLowerCase()}`)
+        window.scrollTo({ top: 0 })
+    }
+    handlerSingleNewsOnclick = (arg) => {
+        this.props.history.push(arg.title.toLowerCase())
+        window.scrollTo({ top: 0 })
+        this.setState({ singleNewsContent: arg})
+
+    }
     render() {
         return this.state.isLoading && (
             <>
-                <Route exact path='/'>
-                    {this.state.allNews.map((el, i) => {
-                        return (
-                            <AllNewsSection
-                                key={i}
-                                indx={i}
-                                newsCategory={el[i].category}
-                                mainNews={el[0]}
-                                topSideNews={el.slice(1, 5)}
-                                bottomSideNews={el.slice(5, 10)}
-                            />
-                        )
-                    })}
+                <Route exact path='/'><AllNewsSection
+                    allNewsContent={this.state.allNews}
+                    handlerCaregoryOnClick={this.handlerCaregoryOnClick}
+                    handlerSingleNewsOnclick={this.handlerSingleNewsOnclick}
+                />
                 </Route>
-                <Route path='/:name'><CategoryNewsSection categoryNewsContent={this.state.allNews} /></Route>
+                <Route path='/category/:name'><CategoryNewsSection categoryNewsContent={this.state.allNews} /></Route>
+                <Route path='/:name' ><SingleNewsSection singleNewsContent={this.state.singleNewsContent} /></Route>
             </>
         )
     }

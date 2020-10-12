@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import './Style/WeatherСurrency.css'
+import './style/weatherСurrency.css'
 function WeatherСurrency(props) {
     return (
         <div className='weather-currency__container _flex'>
@@ -16,7 +16,6 @@ function WeatherСurrency(props) {
             </NavLink>
             <NavLink className='_text-decoration-none _center-align' to='/rates'>
                 <div className='currency__container _flex'>
-                    {/* <span className='_padding-left'>НБРБ:</span> */}
                     <div className='rates_padding-left'><strong><span className='rates_green'>&#36;</span> {(Math.round((props.usdRate) * 100) / 100)}BYR;</strong></div>
                     <div className='rates_padding-left'><strong><span className='rates_red'>&euro;</span> {(Math.round((props.eurRate) * 100) / 100)}BYR;</strong></div>
                     <div className='rates_padding-left'><strong><span className='rates_blue'>100&#8381;</span> {(Math.round((props.rubRate) * 100) / 100)}BYR;</strong></div>
@@ -27,4 +26,3 @@ function WeatherСurrency(props) {
 }
 export default WeatherСurrency
 
-// `http://openweathermap.org/img/wn/${props.icon}@2x.png`
