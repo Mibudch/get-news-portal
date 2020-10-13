@@ -24,7 +24,7 @@ function CategoryNewsSection(props) {
             {currentNewsCategory().map((el, i) => {
                 return (
                     <React.Fragment key={i}>
-                        <div className='section-tag__container'>
+                        <div className='section-tag__container' onClick={props.handlerSingleNewsOnclick.bind(this, el)}>
                             <div className='section-tag__image-wrapper'>
                                 <img className='section-tag__image' src={el.urlToImage} alt='' title=''></img>
                             </div>

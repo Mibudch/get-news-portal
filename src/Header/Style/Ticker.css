@@ -16,7 +16,7 @@
     padding-top: 3px;
     color: #fff;
     background-color: #CF1717FF;
-    height: 32px;
+    min-height: 32px;
     border-radius: 0 0 10px 0;
 }
 .ticker_running-container{

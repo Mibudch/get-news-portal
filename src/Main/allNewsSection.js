@@ -2,7 +2,6 @@ import React from 'react'
 import './style/section.css'
 import { withRouter } from 'react-router-dom'
 function AllNewsSection(props) {
-    // console.log(props.allNewsContent);
     let alignStyle = {
         bannerLeftAlign: 'banner-text_left-align',
         bannerRightAlign: 'banner-text_right-align',
@@ -24,7 +23,7 @@ function AllNewsSection(props) {
                                 <div className='rest-news__top-container'>
                                     {elem.slice(1, 5).map((el, i) => {
                                         return (
-                                            <div key={i} className='rest-news__top-wrapper'>
+                                            <div key={i} onClick={props.handlerSingleNewsOnclick.bind(this, el)} className='rest-news__top-wrapper'>
                                                 <div className='rest-news__img-container'><img className='rest-news__img' src={el.urlToImage} alt='' ></img></div>
                                                 <div className='rest-news__top-text-container'>{el.title}</div>
                                             </div>
@@ -36,7 +35,7 @@ function AllNewsSection(props) {
                                         return (
                                             <React.Fragment key={i}>
                                                 <hr />
-                                                <div ><span className='news__time'>{el.publishedAt.slice(11, 16)}</span> {el.title}</div>
+                                                <div onClick={props.handlerSingleNewsOnclick.bind(this, el)}><span className='news__time'>{el.publishedAt.slice(11, 16)}</span> {el.title}</div>
                                             </React.Fragment>
                                         )
                                     })}

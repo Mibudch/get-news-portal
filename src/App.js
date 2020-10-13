@@ -30,11 +30,9 @@ class App extends Component {
   render() {
     return (
       <>
-        <Route path='/'>
-          <HeaderContainer />
-          <MainContainer />
-          <Footer/>
-        </Route>
+        <Route path='/'><HeaderContainer /></Route>
+        <MainContainer />
+        <Route path='/'><Footer /></Route>
         {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
       </>
     )
