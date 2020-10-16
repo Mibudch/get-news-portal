@@ -1,6 +1,6 @@
 import React from 'react'
 import './style/navWrapper.css'
-import { tagArray } from '../sys/TagArray.js'
+import { tagArray } from '../sys/tagArray.js'
 function NavWrapper(props) {
     return (
         <nav className='nav__container'>
@@ -11,7 +11,6 @@ function NavWrapper(props) {
                     </li>
                 )
             })}
-
         </nav>
     )
 }

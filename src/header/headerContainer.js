@@ -36,6 +36,7 @@ class HeaderContainer extends Component {
                     getWeatherAPI(lat, lon)
                         .then(res => {
                             const weather = res.data
+                            console.log(weather);
                             this.setState({ weather, isCurrentLocation: true })
                         })
                 })
@@ -54,11 +55,11 @@ class HeaderContainer extends Component {
                 <div className='header__top-comtainer'>
                     <NavWrapper />
                     <WeatherСurrency
-                        place={this.state.weather.name}
-                        icon={this.state.weather.weather[0].icon}
-                        iconDescription={this.state.weather.weather[0].description}
-                        temperature={this.state.weather.main.temp}
-                        tempFeelsLike={this.state.weather.main.feels_like}
+                        // place={this.state.weather.name}
+                        // icon={this.state.weather.weather[0].icon}
+                        // iconDescription={this.state.weather.weather[0].description}
+                        // temperature={this.state.weather.main.temp}
+                        // tempFeelsLike={this.state.weather.main.feels_like}
                         usdRate={this.state.currencyRates[4].Cur_OfficialRate}
                         eurRate={this.state.currencyRates[5].Cur_OfficialRate}
                         rubRate={this.state.currencyRates[16].Cur_OfficialRate}
