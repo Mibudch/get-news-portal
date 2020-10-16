@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { tagArray } from '../sys/TagArray.js'
+import { tagArray } from '../sys/_TagArray.js'
 import AllNewsSection from './allNewsSection.js'
 import CategoryNewsSection from './categoryNewsSection.js'
 import SingleNewsSection from './singleNewsSection.js'
