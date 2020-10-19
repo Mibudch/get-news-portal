@@ -4,7 +4,8 @@ import Finder from './finder.js'
 import HeaderAdvBlock from './headerAdvBlock.js'
 import NavWrapper from './navWrapper.js'
 import Ticker from './ticker.js'
-import WeatherСurrency from './weatherСurrency.js'
+import Weather from './weather.js'
+import Currency from './currency.js'
 import { getWeatherAPI, getRatesAPI, getTopNewsAPI } from '../sys/sysAPI.js'
 import { NavLink } from 'react-router-dom'
 import './style/header.css'
@@ -12,10 +13,11 @@ class HeaderContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            defaultState: '--',
             isLoading: false,
             isCurrentLocation: false,
-            lat: 53.893009,
-            lon: 27.567444,
+            lat: 53.89,
+            lon: 27.56,
             weather: {},
             currencyRates: [],
             ticker: '',
@@ -29,14 +31,14 @@ class HeaderContainer extends Component {
                 getRatesAPI(),
                 getTopNewsAPI()
             ])
+
             if ("geolocation" in navigator && !this.state.isCurrentLocation) {
                 navigator.geolocation.getCurrentPosition(position => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
+                    const lat = position.coords.latitude.toFixed(3);
+                    const lon = position.coords.longitude.toFixed(3);
                     getWeatherAPI(lat, lon)
                         .then(res => {
                             const weather = res.data
-                            console.log(weather);
                             this.setState({ weather, isCurrentLocation: true })
                         })
                 })
@@ -50,20 +52,23 @@ class HeaderContainer extends Component {
         }
     }
     render() {
-        return this.state.isLoading && (
+        console.log(this.state.weather);
+        return (
             <header>
                 <div className='header__top-comtainer'>
                     <NavWrapper />
-                    <WeatherСurrency
-                        // place={this.state.weather.name}
-                        // icon={this.state.weather.weather[0].icon}
-                        // iconDescription={this.state.weather.weather[0].description}
-                        // temperature={this.state.weather.main.temp}
-                        // tempFeelsLike={this.state.weather.main.feels_like}
-                        usdRate={this.state.currencyRates[4].Cur_OfficialRate}
-                        eurRate={this.state.currencyRates[5].Cur_OfficialRate}
-                        rubRate={this.state.currencyRates[16].Cur_OfficialRate}
-                    />
+                    {this.state.isLoading ? <Weather
+                        place={this.state.weather.city.name}
+                        icon={`url(http://openweathermap.org/img/wn/${this.state.weather.list[0].weather[0].icon}@2x.png)`}
+                        iconDescription={this.state.weather.list[0].weather[0].description}
+                        temperature={this.state.weather.list[0].main.temp.toFixed(0)}
+                        tempFeelsLike={this.state.weather.list[0].main.feels_like.toFixed(0)}
+                    /> : <Weather />}
+                    {this.state.isLoading ? <Currency
+                        usdRate={this.state.currencyRates[4].Cur_OfficialRate.toFixed(2)}
+                        eurRate={this.state.currencyRates[5].Cur_OfficialRate.toFixed(2)}
+                        rubRate={this.state.currencyRates[16].Cur_OfficialRate.toFixed(2)}
+                    /> : <Currency />}
                 </div>
                 <div className='header__bottom-container'>
                     <NavLink to='/'>

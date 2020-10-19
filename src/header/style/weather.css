@@ -1,14 +1,8 @@
-.weather-currency__container{
-    justify-content: space-between;
-}
 .weather__image {
     height: 40px;
     width: 40px;
     background-size: cover;
     background-position: center;
-}
-.currency__container{
-    margin-left: 20px;
 }
 ._center-align{
     align-self: center;
@@ -22,13 +16,4 @@
 }
 ._flex{
     display: flex;
-}
-.rates_green{
-    color: green;
-}
-.rates_red{
-    color: #C0120C;
-}
-.rates_blue{
-    color:#4579C3;
 }
