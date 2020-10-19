@@ -43,7 +43,6 @@ class MainContainer extends Component {
     handlerSingleNewsOnclick = (arg) => {
         this.props.history.push(`${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
         window.scrollTo({ top: 0 })
-        this.setState({ singleNewsContent: arg })
     }
     render() {
         return this.state.isLoading && (
