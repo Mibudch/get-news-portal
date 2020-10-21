@@ -10,8 +10,7 @@ class MainContainer extends Component {
         super(props)
         this.state = {
             isLoading: false,
-            allNews: [],
-            singleNewsContent: undefined,
+            allNews: []
         }
     }
     async componentDidMount() {

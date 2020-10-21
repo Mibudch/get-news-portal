@@ -2,6 +2,10 @@ import React from 'react'
 import './style/section.css'
 import { withRouter } from 'react-router-dom'
 function AllNewsSection(props) {
+    console.log(props.allNewsContent);
+    // props.allNewsContent.map((elem, ind) => {
+    //     return console.log(elem[ind].category)
+    // })
     let alignStyle = {
         bannerLeftAlign: 'banner-text_left-align',
         bannerRightAlign: 'banner-text_right-align',
