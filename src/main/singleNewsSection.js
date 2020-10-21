@@ -21,7 +21,7 @@ function SingleNewsSection(props) {
                         <div className='category'>{singleNewsContent().category}</div>
                         <div className='time'>{singleNewsContent().publishedAt.slice(11, 16)}</div>
                     </div>
-                    <div className='image'><img src={singleNewsContent().urlToImage} alt=''></img></div>
+                    <div className='image__container'><img className='image' src={singleNewsContent().urlToImage} alt=''></img></div>
                     <div className='title'><h2>{singleNewsContent().title}</h2></div>
                 </div>
                 <div className='bottom__container'>

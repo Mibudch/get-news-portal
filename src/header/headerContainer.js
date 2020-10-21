@@ -52,7 +52,6 @@ class HeaderContainer extends Component {
         }
     }
     render() {
-        console.log(this.state.weather);
         return (
             <header>
                 <div className='header__top-comtainer'>
