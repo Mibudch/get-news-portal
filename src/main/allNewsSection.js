@@ -2,7 +2,7 @@ import React from 'react'
 import './style/section.css'
 import { withRouter } from 'react-router-dom'
 function AllNewsSection(props) {
-    console.log(props.allNewsContent);
+    console.log(props.allNewsContent[1][5], props.allNewsContent[1][4]);
     // props.allNewsContent.map((elem, ind) => {
     //     return console.log(elem[ind].category)
     // })

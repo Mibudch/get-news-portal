@@ -27,6 +27,7 @@ class MainContainer extends Component {
             const { allNews } = this.state
             allNews.push(getTopNews.data.articles, getTopBusinessNews.data.articles, getTopTechnologyNews.data.articles, getTopEntertainmentNews.data.articles, getTopScienceNews.data.articles, getTopHealthNews.data.articles, getTopSportsNews.data.articles)
             allNews.map((elem, ind) => elem.map(el => el.category = tagArray[ind].category))
+            console.log(allNews)
             this.setState({
                 allNews,
                 isLoading: true
