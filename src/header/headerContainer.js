@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Logo from './logo.js'
 import Finder from './finder.js'
-import HeaderAdvBlock from './headerAdvBlock.js'
+import HeaderAdvBlock from '../adv/headerAdvBlock.js'
 import NavWrapper from './navWrapper.js'
 import Ticker from './ticker.js'
 import Weather from './weather.js'

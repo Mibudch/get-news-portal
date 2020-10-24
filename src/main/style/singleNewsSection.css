@@ -1,3 +1,5 @@
+section{
+    display: flex;
 .section__container{
     display: flex;
     flex-direction: column;
@@ -27,4 +29,12 @@
 .time{
     color: #CF1717FF;
     font-weight: 600;
+}
+.source__container{
+    display: flex;
+    justify-content: flex-end;
+}
+.source__title{
+    font-style: italic;
+    padding-right: 10px;
 }
