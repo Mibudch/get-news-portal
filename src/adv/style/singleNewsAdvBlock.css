@@ -1,7 +1,9 @@
+
 .advSingleNews{
     height: 600px;
     width: 160px;
+    margin-top: 40px;
     background-image: url(../img/advSection.svg);
-    position: fixed;
-    right: 5%;
+    position: sticky;
+    top: 5px;
 }

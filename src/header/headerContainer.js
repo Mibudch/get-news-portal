@@ -52,22 +52,22 @@ class HeaderContainer extends Component {
         }
     }
     render() {
-        return (
+        return this.state.isLoading && (
             <header>
                 <div className='header__top-comtainer'>
                     <NavWrapper />
-                    {this.state.isLoading ? <Weather
+                    <Weather
                         place={this.state.weather.city.name}
                         icon={`url(http://openweathermap.org/img/wn/${this.state.weather.list[0].weather[0].icon}@2x.png)`}
                         iconDescription={this.state.weather.list[0].weather[0].description}
                         temperature={this.state.weather.list[0].main.temp.toFixed(0)}
                         tempFeelsLike={this.state.weather.list[0].main.feels_like.toFixed(0)}
-                    /> : <Weather />}
-                    {this.state.isLoading ? <Currency
+                    />
+                    <Currency
                         usdRate={this.state.currencyRates[4].Cur_OfficialRate.toFixed(2)}
                         eurRate={this.state.currencyRates[5].Cur_OfficialRate.toFixed(2)}
                         rubRate={this.state.currencyRates[16].Cur_OfficialRate.toFixed(2)}
-                    /> : <Currency />}
+                    />
                 </div>
                 <div className='header__bottom-container'>
                     <NavLink to='/'>

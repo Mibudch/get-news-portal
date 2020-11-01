@@ -8,7 +8,6 @@ const application = (
     <BrowserRouter>
         <App />
     </BrowserRouter>)
-
 ReactDOM.render(
     application, document.getElementById('root')
 );

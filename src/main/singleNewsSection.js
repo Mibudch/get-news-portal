@@ -3,7 +3,6 @@ import './style/singleNewsSection.css'
 import SingleNewsAdvBlock from '../adv/singleNewsAdvBlock.js'
 import { withRouter } from 'react-router-dom'
 function SingleNewsSection(props) {
-    console.log(props);
     const singleNewsContent = () => {
         const singleNewsName = props.match.params.name
         for (let elem of props.allNewsContent) {
@@ -15,7 +14,7 @@ function SingleNewsSection(props) {
         }
     }
     return (
-        <section>
+        <section className='section__block'>
             <div className='section__container'>
                 <div className='top__container'>
                     <div className='head__container'>

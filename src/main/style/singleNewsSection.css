@@ -1,5 +1,6 @@
-section{
+.section__block{
     display: flex;
+    justify-content: space-around;
 }
 .section__container{
     display: flex;
