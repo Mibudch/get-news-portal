@@ -36,14 +36,15 @@ class MainContainer extends Component {
         }
     }
     handlerCaregoryOnClick = (arg) => {
-        this.props.history.push(arg.toLowerCase())
+        this.props.history.push(`${'category/'}${arg.toLowerCase()}`)
         window.scrollTo({ top: 0 })
     }
     handlerSingleNewsOnclick = (arg) => {
-        this.props.history.push(`${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
+        this.props.history.push(`${'category/'}${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
         window.scrollTo({ top: 0 })
     }
     render() {
+        console.log(this.props.history);
         return this.state.isLoading && (
             <>
                 <Route exact path='/'>
@@ -53,13 +54,13 @@ class MainContainer extends Component {
                         handlerSingleNewsOnclick={this.handlerSingleNewsOnclick}
                     />
                 </Route>
-                <Route exact path='/:name'>
+                <Route exact path='/category/:name'>
                     <CategoryNewsSection
                         categoryNewsContent={this.state.allNews}
                         handlerSingleNewsOnclick={this.handlerSingleNewsOnclick}
                     />
                 </Route>
-                <Route exact path='/:name/:name' >
+                <Route exact path='/category/:name/:name' >
                     <SingleNewsSection allNewsContent={this.state.allNews} />
                 </Route>
             </>
