@@ -1,6 +1,6 @@
 import React from 'react'
-import Background from '../Header/logo/GN.png'
-import './Logo.css'
+import Background from '../header/img/logo.png'
+import './style/logo.css'
 function Logo() {
     return (
         <h1 className='logo-container'>

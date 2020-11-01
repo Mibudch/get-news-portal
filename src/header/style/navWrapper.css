@@ -1,0 +1,25 @@
+.nav__container{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav__element{
+    margin: 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 0 0 10px 0;
+    color: #E1E5E8FF;
+    background-color: #CF1717FF;
+    cursor: pointer;
+    border: 0;
+}
+.nav__element:active{
+    background-color: #DC4D41F6;
+}
+.nav__element:focus {
+    outline: 0;
+    outline-offset: 0;
+}
