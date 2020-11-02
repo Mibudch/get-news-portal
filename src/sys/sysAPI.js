@@ -1,4 +1,7 @@
 import axios from 'axios'
+const keysArr = {
+    newsKeys: ''
+}
 
 export const getWeatherAPI = (lat, lon) => (axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=ru&appid=8deb1290960a6df846daf0a26e878871`))
 export const getRatesAPI = () => (axios.get(`https://www.nbrb.by/api/exrates/rates?periodicity=0`))

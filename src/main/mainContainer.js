@@ -33,6 +33,10 @@ class MainContainer extends Component {
             })
         } catch (e) {
             console.log(e);
+            // if e === 429{
+            // this.setState((prevState) => (keyInd: prevState.keyInd + 1))
+            // }
+            // console.error(e)
         }
     }
     handlerCaregoryOnClick = (arg) => {
@@ -40,6 +44,7 @@ class MainContainer extends Component {
         window.scrollTo({ top: 0 })
     }
     handlerSingleNewsOnclick = (arg) => {
+        console.log(arg)
         this.props.history.push(`${'category/'}${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
         window.scrollTo({ top: 0 })
     }

@@ -48,7 +48,7 @@ class HeaderContainer extends Component {
             const currencyRates = getCurrencyRates.data
             this.setState({ weather, currencyRates, ticker: ticker, isLoading: true })
         } catch (e) {
-            console.error(e)
+            console.log(e)
         }
     }
     render() {
