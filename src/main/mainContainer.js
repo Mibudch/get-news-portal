@@ -72,7 +72,7 @@ class MainContainer extends Component {
                     <SingleNewsSection allNewsContent={this.state.allNews} />
                 </Route>
                 <Route exact path='/search' >
-                    <SearchSection />
+                    <SearchSection searchResult={this.props.searchResult}/>
                 </Route>
             </>
         )

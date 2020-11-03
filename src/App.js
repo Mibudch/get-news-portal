@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MainContainer from './main/mainContainer.js'
 import HeaderContainer from './header/headerContainer.js'
 import Footer from './footer/footer.js'
+import { getNewsSearchAPI } from './sys/sysAPI.js'
 import { IoIosArrowDropupCircle } from 'react-icons/io'
 import { Route, withRouter } from 'react-router-dom'
 import './App.css'
@@ -10,6 +11,8 @@ class App extends Component {
     super(props)
     this.state = {
       isScrollbackVisible: false,
+      searchRequest: '',
+      searchResult: ''
     }
   }
   componentDidMount() {
@@ -27,11 +30,24 @@ class App extends Component {
     }
   }
   handlerScrollBack = () => (window.scrollTo({ top: 0, behavior: 'smooth' }))
+  getOnChangeFinderValue = (event) => {
+    let { searchRequest } = this.state
+    searchRequest = event.target.value
+    this.setState({ searchRequest })
+  }
+  handlerOnClickFinder = () => {
+    const { searchRequest } = this.state
+    getNewsSearchAPI(searchRequest)
+      .then(res => {
+        const searchResult = res.data.articles
+        this.setState({ searchResult })
+      })
+  }
   render() {
     return (
       <>
-        <Route path='/'><HeaderContainer /></Route>
-        <MainContainer />
+        <Route path='/'><HeaderContainer serchRequest={this.getOnChangeFinderValue} finderOnClick={this.handlerOnClickFinder} /></Route>
+        <MainContainer searchResult={this.state.searchResult} />
         <Route path='/'><Footer /></Route>
         {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
       </>

@@ -16,17 +16,17 @@
 .finder__input::placeholder{
     font-size: medium;
 }
-.finder__button{
-    border:  0;
-    outline: none;
+.finder__link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 20%;
-    height: 32px;
     background-color: #CF1717FF;
     color: #E1E5E8FF;
     font-size: large;
     border-radius: 0 0 10px 0;
-    cursor: pointer;
+    text-decoration: none;
 }
-.finder__button:active{
+.finder__link:active{
     background-color: #DC4D41F6;
 }
