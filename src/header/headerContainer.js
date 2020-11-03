@@ -6,11 +6,14 @@ import NavWrapper from './navWrapper.js'
 import Ticker from './ticker.js'
 import Weather from './weather.js'
 import Currency from './currency.js'
-import { getWeatherAPI, getRatesAPI, getTopNewsAPI } from '../sys/sysAPI.js'
+import { getWeatherAPI, getRatesAPI, getTopNewsAPI} from '../sys/sysAPI.js'
 import { NavLink } from 'react-router-dom'
 import './style/header.css'
 import Background from '../preloaders/img/35.svg'
-import { defaultValue, greetings} from '../preloaders/defaults.js'
+import { defaultValue, greetings } from '../preloaders/defaults.js'
+
+
+let finderValue = ''
 class HeaderContainer extends Component {
     constructor(props) {
         super(props)
@@ -69,6 +72,9 @@ class HeaderContainer extends Component {
         }
         this.setState({ isLoading: false })
     }
+    getOnChangeFinderValue = (event) => {
+        finderValue = event.target.value
+    }
     render() {
         return (
             <header>
@@ -106,7 +112,10 @@ class HeaderContainer extends Component {
                     <NavLink to='/'>
                         <Logo />
                     </NavLink>
-                    <Finder />
+                    <Finder
+                        finderOnClick={this.handlerOnClickFinder}
+                        onChange={this.getOnChangeFinderValue}
+                    />
                     <HeaderAdvBlock />
                 </div>
                 {this.state.isLoading ?

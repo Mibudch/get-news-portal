@@ -3,6 +3,7 @@ import { tagArray } from '../sys/tagArray.js'
 import AllNewsSection from './allNewsSection.js'
 import CategoryNewsSection from './categoryNewsSection.js'
 import SingleNewsSection from './singleNewsSection.js'
+import SearchSection from './searchSection.js'
 import { Route, withRouter } from 'react-router-dom'
 import { getTopNewsAPI, getTopBusinessNewsAPI, getTopTechnologyNewsAPI, getTopEntertainmentNewsAPI, getTopScienceNewsAPI, getTopHealthNewsAPI, getTopSportsNewsAPI } from '../sys/sysAPI'
 class MainContainer extends Component {
@@ -69,6 +70,9 @@ class MainContainer extends Component {
                 </Route>
                 <Route exact path='/category/:name/:name' >
                     <SingleNewsSection allNewsContent={this.state.allNews} />
+                </Route>
+                <Route exact path='/search' >
+                    <SearchSection />
                 </Route>
             </>
         )
