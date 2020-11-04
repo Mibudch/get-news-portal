@@ -33,7 +33,14 @@ class MainContainer extends Component {
                 isLoading: true
             })
         } catch (e) {
-            console.log(e);
+            console.log(e)
+            // if (e.response.status === 429) {
+            //     for (let i = 0; i < APIKeys.length; i++) {
+            //         const key = APIKeys[i++]
+            //         this.setState({ APIKey: key })
+            //         console.log(this.state.APIKey)
+            //     }
+            // }
             // if e === 429{
             // this.setState((prevState) => (keyInd: prevState.keyInd + 1))
             // }
@@ -72,7 +79,7 @@ class MainContainer extends Component {
                     <SingleNewsSection allNewsContent={this.state.allNews} />
                 </Route>
                 <Route exact path='/search' >
-                    <SearchSection searchResult={this.props.searchResult}/>
+                    <SearchSection searchResult={this.props.searchResult} />
                 </Route>
             </>
         )
