@@ -111,6 +111,7 @@ class HeaderContainer extends Component {
                         <Logo />
                     </NavLink>
                     <Finder
+                        searchValue={this.props.searchValue}
                         finderOnClick={this.props.finderOnClick}
                         onChange={this.props.serchRequest}
                     />

@@ -9,14 +9,14 @@ import axios from 'axios'
 // console.log(valid())
 export const getWeatherAPI = (lat, lon) => (axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=ru&appid=8deb1290960a6df846daf0a26e878871`))
 export const getRatesAPI = () => (axios.get(`https://www.nbrb.by/api/exrates/rates?periodicity=0`))
-export const getNewsSearchAPI = (searchRequest) => (axios.get(`https://newsapi.org/v2/everything?q=${searchRequest}&language=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
-export const getTopNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=general&country=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
-export const getTopBusinessNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=business&country=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
-export const getTopTechnologyNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=technology&country=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
-export const getTopEntertainmentNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=entertainment&country=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
-export const getTopScienceNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=science&country=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
-export const getTopHealthNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=health&country=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
-export const getTopSportsNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=sports&country=ru&apiKey=ba54c704ec4340d5a4f17fedf3417297`))
+export const getNewsSearchAPI = (searchRequest) => (axios.get(`https://newsapi.org/v2/everything?q=${searchRequest}&language=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
+export const getTopNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=general&country=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
+export const getTopBusinessNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=business&country=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
+export const getTopTechnologyNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=technology&country=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
+export const getTopEntertainmentNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=entertainment&country=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
+export const getTopScienceNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=science&country=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
+export const getTopHealthNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=health&country=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
+export const getTopSportsNewsAPI = () => (axios.get(`http://newsapi.org/v2/top-headlines?category=sports&country=ru&apiKey=209312305fbb45d0a063ec7e98879f47`))
 
 // const APIKeys = [
 //     '67584eaf949b420d841aaf893ca8c8e0',

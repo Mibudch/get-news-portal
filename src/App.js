@@ -11,7 +11,7 @@ class App extends Component {
     super(props)
     this.state = {
       isScrollbackVisible: false,
-      searchRequest: '',
+      searchRequest: undefined,
       searchResult: ''
     }
   }
@@ -37,16 +37,17 @@ class App extends Component {
   }
   handlerOnClickFinder = () => {
     const { searchRequest } = this.state
-    getNewsSearchAPI(searchRequest)
+    return searchRequest && getNewsSearchAPI(searchRequest.split(' ').join('+'))
       .then(res => {
         const searchResult = res.data.articles
         this.setState({ searchResult })
+        this.props.location.pathname.slice(1, 7) === 'search' ? this.props.history.push(searchRequest) : this.props.history.push(`search/${searchRequest}`)
       })
   }
   render() {
     return (
       <>
-        <Route path='/'><HeaderContainer serchRequest={this.getOnChangeFinderValue} finderOnClick={this.handlerOnClickFinder} /></Route>
+        <Route path='/'><HeaderContainer searchValue={this.state.searchRequest} serchRequest={this.getOnChangeFinderValue} finderOnClick={this.handlerOnClickFinder} /></Route>
         <MainContainer searchResult={this.state.searchResult} />
         <Route path='/'><Footer /></Route>
         {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
