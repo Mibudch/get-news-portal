@@ -6,11 +6,9 @@ function SingleNewsSection(props) {
     const singleNewsContent = () => {
         const singleNewsName = props.match.params.name
         for (let elem of props.allNewsContent) {
-            for (let el of elem) {
-                if (el.title.toLowerCase() === singleNewsName) {
-                    return el
+                if (elem.title.toLowerCase() === singleNewsName) {
+                    return elem
                 }
-            }
         }
     }
     return (
@@ -18,7 +16,7 @@ function SingleNewsSection(props) {
             <div className='section__container'>
                 <div className='top__container'>
                     <div className='head__container'>
-                        <div className='category'>{singleNewsContent().category}</div>
+                        <div className='category'>{singleNewsContent().category!== 'searchResult' ? singleNewsContent().category : null }</div>
                         <div className='time'>{singleNewsContent().publishedAt.slice(11, 16)}</div>
                     </div>
                     <div className='image__container'><img className='image' src={singleNewsContent().urlToImage} alt=''></img></div>
