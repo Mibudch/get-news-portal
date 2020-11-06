@@ -8,6 +8,9 @@
     text-decoration: none;
     color: black;
 }
+.news__tittle:hover{
+    text-decoration: underline;
+}
 .newsLink:visited{
     color: #660099FF;
 }

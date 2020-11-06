@@ -2,7 +2,6 @@ import React from 'react'
 import './style/searchSection.css'
 
 function SearchSection(props) {
-    console.log(props.isLoading)
     return props.searchResult && (
         props.isLoading ? <div>Loading</div> :
         <section>
@@ -11,7 +10,7 @@ function SearchSection(props) {
                     <React.Fragment key={i}>
                         <div className='news__container'>
                             <a rel="noopener noreferrer" target='_blank' href={el.url} className='newsLink'>
-                                <h3 className='news__tittle'>{el.title}</h3>
+                                <h2 className='news__tittle'>{el.title}</h2>
                             </a>
                             <h4 className='news__description'>{el.description}</h4>
                             <div className='news__url'>{el.url}</div>
