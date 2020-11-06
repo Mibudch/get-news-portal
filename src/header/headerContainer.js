@@ -22,6 +22,7 @@ class HeaderContainer extends Component {
             isCurrentLocation: false,
             lat: 53.89,
             lon: 27.56,
+            weather: '',
             place: '',
             icon: '',
             iconDescription: '',
@@ -59,6 +60,7 @@ class HeaderContainer extends Component {
                 })
             }
             const ticker = getTopNews.data.articles.map((el) => `${(el.title)} ${'||'} `)
+            const weather = getWeather.data
             const place = getWeather.data.city.name
             const icon = getWeather.data.list[0].weather[0].icon
             const iconDescription = getWeather.data.list[0]?.weather[0].description
@@ -67,11 +69,18 @@ class HeaderContainer extends Component {
             const usdRate = getCurrencyRates.data[4].Cur_OfficialRate.toFixed(2)
             const eurRate = getCurrencyRates.data[5].Cur_OfficialRate.toFixed(2)
             const rubRate = getCurrencyRates.data[16].Cur_OfficialRate.toFixed(2)
-            this.setState({ place, icon, iconDescription, temperature, tempFeelsLike, usdRate, eurRate, rubRate, ticker: ticker, isLoading: true })
+            this.setState({ weather, place, icon, iconDescription, temperature, tempFeelsLike, usdRate, eurRate, rubRate, ticker: ticker, isLoading: true })
         } catch (e) {
             console.log(e)
         }
         this.setState({ isLoading: false })
+    }
+    handlerWeatherOnClick = (arg) => {
+        const { isLoading } = this.state
+        this.props.history.push({
+            pathname: '/погода',
+            state: { weather: this.state.weather, isLoading }
+        })
     }
     render() {
         return (
@@ -86,6 +95,7 @@ class HeaderContainer extends Component {
                             tempFeelsLike={defaultValue}
                         /> :
                         <Weather
+                            weatherOnClick={this.handlerWeatherOnClick}
                             place={this.state.place}
                             icon={`url(http://openweathermap.org/img/wn/${this.state.icon}@2x.png)`}
                             iconDescription={this.state.iconDescription}

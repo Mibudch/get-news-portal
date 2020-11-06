@@ -1,0 +1,19 @@
+.weather-card__block{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.weather-card__container{
+    border: 1px solid #333;
+    border-radius: 3px;
+    width: 12%;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+.weather-card__icon{
+    height: 50px;
+    width: 50px;
+}

@@ -4,6 +4,7 @@ import AllNewsSection from './allNewsSection.js'
 import CategoryNewsSection from './categoryNewsSection.js'
 import SingleNewsSection from './singleNewsSection.js'
 import SearchSection from './searchSection.js'
+import WeatherSection from './weatherSection'
 import { Route, withRouter } from 'react-router-dom'
 import { getTopNewsAPI, getTopBusinessNewsAPI, getTopTechnologyNewsAPI, getTopEntertainmentNewsAPI, getTopScienceNewsAPI, getTopHealthNewsAPI, getTopSportsNewsAPI } from '../sys/sysAPI'
 class MainContainer extends Component {
@@ -57,7 +58,6 @@ class MainContainer extends Component {
         window.scrollTo({ top: 0 })
     }
     getHistoryFromSearchSingleNews = (arg) => {
-        console.log(arg)
         this.props.history.push(`${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
     }
     render() {
@@ -85,6 +85,9 @@ class MainContainer extends Component {
                         searchResult={this.props.searchResult}
                         handlerSingleNewsOnClickFromSearch={this.getHistoryFromSearchSingleNews}
                     />
+                </Route>
+                <Route exact path='/погода' >
+                    <WeatherSection />
                 </Route>
             </>
         )
