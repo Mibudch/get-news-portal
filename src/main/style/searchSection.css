@@ -1,0 +1,23 @@
+.news__container{
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.newsLink{
+    text-decoration: none;
+    color: black;
+}
+.newsLink:visited{
+    color: #660099FF;
+}
+.newsLink:active{
+    color: #660099FF;
+}
+.news__description{
+    color: #333;
+    margin-top: 0;
+}
+.news__date{
+    align-self: flex-end
+}

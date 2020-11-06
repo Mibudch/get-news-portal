@@ -10,7 +10,10 @@ import { getWeatherAPI, getRatesAPI, getTopNewsAPI } from '../sys/sysAPI.js'
 import { NavLink } from 'react-router-dom'
 import './style/header.css'
 import Background from '../preloaders/img/35.svg'
-import { defaultValue, greetings} from '../preloaders/defaults.js'
+import { defaultValue, greetings } from '../preloaders/defaults.js'
+import { withRouter } from 'react-router-dom'
+
+
 class HeaderContainer extends Component {
     constructor(props) {
         super(props)
@@ -27,6 +30,7 @@ class HeaderContainer extends Component {
             usdRate: '',
             eurRate: '',
             rubRate: '',
+            finderValue: '',
             ticker: '',
         }
     }
@@ -106,7 +110,11 @@ class HeaderContainer extends Component {
                     <NavLink to='/'>
                         <Logo />
                     </NavLink>
-                    <Finder />
+                    <Finder
+                        searchValue={this.props.searchValue}
+                        finderOnClick={this.props.finderOnClick}
+                        onChange={this.props.serchRequest}
+                    />
                     <HeaderAdvBlock />
                 </div>
                 {this.state.isLoading ?
@@ -121,4 +129,4 @@ class HeaderContainer extends Component {
         )
     }
 }
-export default HeaderContainer
+export default withRouter(HeaderContainer)

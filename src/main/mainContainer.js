@@ -3,6 +3,7 @@ import { tagArray } from '../sys/tagArray.js'
 import AllNewsSection from './allNewsSection.js'
 import CategoryNewsSection from './categoryNewsSection.js'
 import SingleNewsSection from './singleNewsSection.js'
+import SearchSection from './searchSection.js'
 import { Route, withRouter } from 'react-router-dom'
 import { getTopNewsAPI, getTopBusinessNewsAPI, getTopTechnologyNewsAPI, getTopEntertainmentNewsAPI, getTopScienceNewsAPI, getTopHealthNewsAPI, getTopSportsNewsAPI } from '../sys/sysAPI'
 class MainContainer extends Component {
@@ -32,7 +33,14 @@ class MainContainer extends Component {
                 isLoading: true
             })
         } catch (e) {
-            console.log(e);
+            console.log(e)
+            // if (e.response.status === 429) {
+            //     for (let i = 0; i < APIKeys.length; i++) {
+            //         const key = APIKeys[i++]
+            //         this.setState({ APIKey: key })
+            //         console.log(this.state.APIKey)
+            //     }
+            // }
             // if e === 429{
             // this.setState((prevState) => (keyInd: prevState.keyInd + 1))
             // }
@@ -44,12 +52,13 @@ class MainContainer extends Component {
         window.scrollTo({ top: 0 })
     }
     getHistoryFromSingleNews = (arg) => {
-        this.props.history.push(`${'category/'}${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
-        window.scrollTo({ top: 0 })
-    }
-    getHistoryFromCategorySingleNews = (arg) => {
+        this.props.location.pathname = '/category/'
         this.props.history.push(`${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
         window.scrollTo({ top: 0 })
+    }
+    getHistoryFromSearchSingleNews = (arg) => {
+        console.log(arg)
+        this.props.history.push(`${arg.category.toLowerCase()}/${arg.title.toLowerCase()}`)
     }
     render() {
         return this.state.isLoading && (
@@ -64,11 +73,18 @@ class MainContainer extends Component {
                 <Route exact path='/category/:name'>
                     <CategoryNewsSection
                         categoryNewsContent={this.state.allNews}
-                        handlerSingleNewsOnclickFromCategory={this.getHistoryFromCategorySingleNews}
+                        handlerSingleNewsOnclick={this.getHistoryFromSingleNews}
                     />
                 </Route>
                 <Route exact path='/category/:name/:name' >
-                    <SingleNewsSection allNewsContent={this.state.allNews} />
+                    <SingleNewsSection allNewsContent={this.state.allNews.flat()} />
+                </Route>
+                <Route exact path='/search/:name' >
+                    <SearchSection
+                        isLoading={this.props.isLoading}
+                        searchResult={this.props.searchResult}
+                        handlerSingleNewsOnClickFromSearch={this.getHistoryFromSearchSingleNews}
+                    />
                 </Route>
             </>
         )

@@ -10,6 +10,7 @@
 .active_link{
     height: 100px;
     font-size: x-large;
+    transition: 0.5s;
 }
 .nav__tag{
     margin: 1px;
