@@ -40,6 +40,10 @@ class App extends Component {
     return searchRequest && getNewsSearchAPI(searchRequest.split(' ').join('+'))
       .then(res => {
         const searchResult = res.data.articles
+        searchResult.map(el => {
+          el.category = 'search'
+          return el
+        })
         this.setState({ searchResult })
         this.props.location.pathname.slice(1, 7) === 'search' ? this.props.history.push(searchRequest) : this.props.history.push(`search/${searchRequest}`)
       })
