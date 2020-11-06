@@ -107,12 +107,11 @@ class HeaderContainer extends Component {
                     }
                 </div>
                 <div className='header__bottom-container'>
-                    <NavLink to='/'>
                         <Logo />
-                    </NavLink>
                     <Finder
                         searchValue={this.props.searchValue}
                         finderOnClick={this.props.finderOnClick}
+                        onKeyDown={this.props.finderOnKeyDown}
                         onChange={this.props.serchRequest}
                     />
                     <HeaderAdvBlock />

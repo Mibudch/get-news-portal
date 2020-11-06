@@ -35,7 +35,7 @@ function AllNewsSection(props) {
                                         return (
                                             <React.Fragment key={i}>
                                                 <hr />
-                                                <div onClick={props.handlerSingleNewsOnclick.bind(this, el)}><span className='news__time'>{el.publishedAt.slice(11, 16)}</span> {el.title}</div>
+                                                <div onClick={props.handlerSingleNewsOnclick.bind(this, el)}><span className='news__time'>{el.publishedAt.slice(11, 16)}</span> <span className='rest-news__text'>{el.title}</span></div>
                                             </React.Fragment>
                                         )
                                     })}

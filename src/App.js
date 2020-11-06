@@ -35,29 +35,31 @@ class App extends Component {
     searchRequest = event.target.value
     this.setState({ searchRequest })
   }
-    handlerOnClickFinder = () => {
-      const { searchRequest } = this.state
-      searchRequest && getNewsSearchAPI(searchRequest.split(' ').join('+'))
-        .then(res => {
-          const searchResult = res.data.articles
-          searchResult.map(el => {
-            el.category = 'searchResult'
-            return el
-          })
-          this.setState({ searchResult})
-          this.props.location.pathname = '/search/'
-          this.props.history.push(searchRequest)
+  handlerOnClickFinder = () => {
+    const { searchRequest } = this.state
+    searchRequest && getNewsSearchAPI(searchRequest.split(' ').join('+'))
+      .then(res => {
+        const searchResult = res.data.articles
+        searchResult.map(el => {
+          el.category = 'searchResult'
+          return el
         })
-    }
-    render() {
-      return (
-        <>
-          <Route path='/'><HeaderContainer searchValue={this.state.searchRequest} serchRequest={this.getOnChangeFinderValue} finderOnClick={this.handlerOnClickFinder} /></Route>
-          <MainContainer searchResult={this.state.searchResult} isLoading={this.state.isLoading} />
-          <Route path='/'><Footer /></Route>
-          {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
-        </>
-      )
-    }
+        this.setState({ searchResult })
+        this.props.location.pathname = '/search/'
+        this.props.history.push(searchRequest)
+      })
   }
-  export default withRouter(App)
+  handlerFinderOnKeyDown = (event) => (event.key === 'Enter' && this.handlerOnClickFinder())
+
+  render() {
+    return (
+      <>
+        <Route path='/'><HeaderContainer searchValue={this.state.searchRequest} serchRequest={this.getOnChangeFinderValue} finderOnClick={this.handlerOnClickFinder} finderOnKeyDown={this.handlerFinderOnKeyDown} /></Route>
+        <MainContainer searchResult={this.state.searchResult} isLoading={this.state.isLoading} />
+        <Route path='/'><Footer /></Route>
+        {this.state.isScrollbackVisible && <IoIosArrowDropupCircle className='section__scrollBack' onClick={this.handlerScrollBack} />}
+      </>
+    )
+  }
+}
+export default withRouter(App)

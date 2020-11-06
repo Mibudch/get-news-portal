@@ -4,7 +4,7 @@ function Finder(props) {
     return (
         <h2 className='finder__container'>
             <div className='finder__wrapper'>
-                <input type='text' className='finder__input' onChange={props.onChange}></input>
+                <input type='text' className='finder__input' onKeyDown={props.onKeyDown} onChange={props.onChange}></input>
                 <button className='finder__button' onClick={props.finderOnClick}>Найти</button>
             </div>
         </h2>

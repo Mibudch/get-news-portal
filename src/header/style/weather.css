@@ -4,6 +4,9 @@
     background-size: cover;
     background-position: center;
 }
+.weather__container:hover{
+    text-decoration: underline;
+}
 ._center-align{
     align-self: center;
 }

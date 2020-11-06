@@ -1,11 +1,14 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import Background from '../header/img/logo.png'
 import './style/logo.css'
 function Logo() {
     return (
-        <h1 className='logo-container'>
-            <img className='logo' src={Background} alt='none'></img>
-        </h1>
+        <NavLink  className='logo-link' to='/'>
+            <div className='logo-container'>
+                <img className='logo' src={Background} alt='none'></img>
+            </div>
+        </NavLink>
     )
 }
 export default Logo

@@ -1,18 +1,21 @@
-.nav__container{
+.nav__container {
     display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.nav__link{
+
+.nav__link {
     text-decoration: none;
 }
-.active_link{
+
+.active_link {
     height: 100px;
     font-size: x-large;
     transition: 0.5s;
 }
-.nav__tag{
+
+.nav__tag {
     margin: 1px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -24,7 +27,11 @@
     cursor: pointer;
     border: 0;
 }
-.nav__tag:active{
-    background-color: #DC4D41F6;
+
+.nav__tag:hover{
+    text-decoration: underline;
 }
 
+.nav__tag:active {
+    background-color: #DC4D41F6;
+}
